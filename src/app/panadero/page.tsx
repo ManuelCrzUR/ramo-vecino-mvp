@@ -1,0 +1,113 @@
+'use client'
+
+import { useState } from 'react'
+import { useUser } from '@/lib/store'
+import { MOCK_BAKERIES, MOCK_PRODUCTS, MOCK_BAKE_EVENTS } from '@/lib/mockData'
+import { Button } from '@/components/ui/button'
+import { motion } from 'framer-motion'
+import { Flame, X } from 'lucide-react'
+import { toast } from 'sonner'
+
+export default function PanaderoPage() {
+  const user = useUser((state) => state.user)
+  const bakery = user?.bakeryId ? MOCK_BAKERIES[user.bakeryId] : null
+  const [isOpen, setIsOpen] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null)
+
+  const recentEvent = MOCK_BAKE_EVENTS.find((e) => e.bakeryId === bakery?.id)
+  const minutesAgo = recentEvent
+    ? Math.floor((Date.now() - new Date(recentEvent.bakedAt).getTime()) / 60000)
+    : null
+
+  const handleBakeEvent = () => {
+    if (!selectedProduct) {
+      toast.error('Selecciona un producto')
+      return
+    }
+    toast.success(`¡Hornada de ${selectedProduct} registrada!`)
+    setIsOpen(false)
+    setSelectedProduct(null)
+  }
+
+  return (
+    <div className="p-6 space-y-6">
+      {bakery && (
+        <div className="bg-gradient-to-br from-ramo-red to-red-700 text-white rounded-lg p-6 space-y-4">
+          <h1 className="text-3xl font-bold">{bakery.name}</h1>
+          <div className="space-y-2">
+            <p className="text-sm">{bakery.address}</p>
+            <p className="text-sm">⭐ {bakery.rating} ({bakery.reviewsCount} opiniones)</p>
+            {bakery.isCertified && <p className="text-sm">✓ Certificada</p>}
+          </div>
+          {minutesAgo !== null && (
+            <p className="text-sm bg-white/20 rounded px-3 py-1 inline-block">
+              Última hornada: hace {minutesAgo} minutos
+            </p>
+          )}
+        </div>
+      )}
+
+      <motion.div whileTap={{ scale: 0.95 }}>
+        <motion.button
+          onClick={() => setIsOpen(true)}
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="w-full bg-ramo-red hover:bg-red-700 text-white font-bold py-6 rounded-lg flex items-center justify-center gap-2 text-lg"
+        >
+          <Flame size={28} />
+          Acabo de Hornear
+        </motion.button>
+      </motion.div>
+
+      {isOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-end z-50">
+          <div className="bg-white w-full rounded-t-2xl p-6 space-y-4 max-h-96 overflow-y-auto">
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg font-bold text-ramo-red">Registrar Hornada</h2>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-1 hover:bg-ramo-grayLight rounded"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            <p className="text-sm text-ramo-grayDark">¿Qué acabas de hornear?</p>
+            <div className="space-y-2">
+              {Object.values(MOCK_PRODUCTS).map((product) => (
+                <button
+                  key={product.id}
+                  onClick={() => setSelectedProduct(product.name)}
+                  className={`w-full p-3 rounded-lg border-2 transition-all text-left ${
+                    selectedProduct === product.name
+                      ? 'bg-ramo-red border-ramo-red text-white'
+                      : 'bg-white border-ramo-grayBorder hover:border-ramo-red'
+                  }`}
+                >
+                  <p className="font-bold">{product.name}</p>
+                  <p className="text-xs opacity-75">$ {product.price.toLocaleString()}</p>
+                </button>
+              ))}
+            </div>
+            <Button
+              onClick={handleBakeEvent}
+              className="w-full bg-ramo-red hover:bg-red-700 py-6"
+            >
+              Confirmar
+            </Button>
+          </div>
+        </div>
+      )}
+
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-white rounded-lg p-4 border border-ramo-grayBorder text-center">
+          <p className="text-3xl font-bold text-ramo-red">{bakery?.availableProducts.length}</p>
+          <p className="text-sm text-ramo-grayDark mt-2">Productos</p>
+        </div>
+        <div className="bg-white rounded-lg p-4 border border-ramo-grayBorder text-center">
+          <p className="text-3xl font-bold text-ramo-red">{bakery?.reviewsCount}</p>
+          <p className="text-sm text-ramo-grayDark mt-2">Reseñas</p>
+        </div>
+      </div>
+    </div>
+  )
+}

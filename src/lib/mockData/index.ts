@@ -1,0 +1,8 @@
+export { MOCK_USERS } from './users'
+export { MOCK_BAKERIES } from './bakeries'
+export { MOCK_BAKE_EVENTS } from './bakeEvents'
+export { MOCK_PRODUCTS } from './products'
+export { MOCK_COMBOS } from './combos'
+export { MOCK_KITS } from './kits'
+export { MOCK_TENDENCIAS, MOCK_TENDENCIAS_CHART } from './tendencias'
+export { MOCK_APRENDE } from './aprende'
