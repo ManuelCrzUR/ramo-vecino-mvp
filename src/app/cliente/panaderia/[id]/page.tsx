@@ -49,7 +49,7 @@ export default function BakeryDetailPage({
           </button>
         </div>
 
-        <div className="bg-gradient-to-br from-ramo-blue to-ramo-blueDark text-white p-6 pb-12 space-y-4">
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white p-6 pb-12 space-y-4">
           <h1 className="text-3xl font-bold">{bakery.name}</h1>
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-2">
@@ -105,16 +105,16 @@ export default function BakeryDetailPage({
                 Object.values(bakeryProducts).map((product) => (
                   <div
                     key={product.id}
-                    className="border border-ramo-grayBorder rounded-lg p-4 hover:bg-ramo-grayLight transition-colors"
+                    className="border border-gray-200 rounded-lg p-4 bg-gray-50 hover:bg-gray-100 transition-colors"
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-bold text-ramo-grayDark">{product.name}</h3>
-                        <p className="text-sm text-ramo-grayDark mt-1">
+                        <h3 className="font-bold text-gray-900">{product.name}</h3>
+                        <p className="text-sm text-gray-600 mt-1">
                           {product.description}
                         </p>
                       </div>
-                      <p className="font-bold text-ramo-blue text-lg">
+                      <p className="font-bold text-blue-600 text-lg">
                         ${product.price.toLocaleString()}
                       </p>
                     </div>
@@ -126,19 +126,19 @@ export default function BakeryDetailPage({
               {bakeryComBos.map((combo) => (
                 <div
                   key={combo.id}
-                  className="border border-ramo-grayBorder rounded-lg p-4 hover:bg-ramo-grayLight transition-colors"
+                  className="border border-gray-200 rounded-lg p-4 bg-gray-50 hover:bg-gray-100 transition-colors"
                 >
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="font-bold text-ramo-grayDark">{combo.name}</h3>
-                      <p className="text-sm text-ramo-grayDark mt-1">
+                      <h3 className="font-bold text-gray-900">{combo.name}</h3>
+                      <p className="text-sm text-gray-600 mt-1">
                         {combo.description}
                       </p>
-                      <p className="text-xs text-ramo-grayDark mt-2">
+                      <p className="text-xs text-gray-600 mt-2">
                         {combo.products.length} productos
                       </p>
                     </div>
-                    <p className="font-bold text-ramo-red text-lg">
+                    <p className="font-bold text-red-600 text-lg">
                       ${combo.price.toLocaleString()}
                     </p>
                   </div>

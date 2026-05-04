@@ -32,10 +32,10 @@ export default function PanaderoPage() {
   return (
     <div className="p-6 space-y-6">
       {bakery && (
-        <div className="bg-gradient-to-br from-ramo-red to-red-700 text-white rounded-lg p-6 space-y-4">
+        <div className="bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-xl p-6 space-y-4">
           <h1 className="text-3xl font-bold">{bakery.name}</h1>
           <div className="space-y-2">
-            <p className="text-sm">{bakery.address}</p>
+            <p className="text-sm text-white/80">{bakery.address}</p>
             <div className="flex items-center gap-1 text-sm">
               <Star size={16} fill="white" />
               {bakery.rating} ({bakery.reviewsCount} opiniones)
@@ -60,7 +60,7 @@ export default function PanaderoPage() {
           onClick={() => setIsOpen(true)}
           animate={{ scale: [1, 1.05, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="w-full bg-ramo-red hover:bg-red-700 text-white font-bold py-6 rounded-lg flex items-center justify-center gap-2 text-lg"
+          className="w-full bg-white/20 hover:bg-white/30 border-2 border-white/40 text-white font-bold py-6 rounded-lg flex items-center justify-center gap-2 text-lg transition-all"
         >
           <Flame size={28} />
           Acabo de Hornear
@@ -69,17 +69,17 @@ export default function PanaderoPage() {
 
       {isOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-end z-50">
-          <div className="bg-white w-full rounded-t-2xl p-6 space-y-4 max-h-96 overflow-y-auto">
+          <div className="bg-white w-full rounded-t-3xl p-6 space-y-4 max-h-96 overflow-y-auto">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-bold text-ramo-red">Registrar Hornada</h2>
+              <h2 className="text-lg font-bold text-gray-900">Registrar Hornada</h2>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1 hover:bg-ramo-grayLight rounded"
+                className="p-1 hover:bg-gray-100 rounded"
               >
                 <X size={24} />
               </button>
             </div>
-            <p className="text-sm text-ramo-grayDark">¿Qué acabas de hornear?</p>
+            <p className="text-sm text-gray-600">¿Qué acabas de hornear?</p>
             <div className="space-y-2">
               {Object.values(MOCK_PRODUCTS).map((product) => (
                 <button
@@ -87,8 +87,8 @@ export default function PanaderoPage() {
                   onClick={() => setSelectedProduct(product.name)}
                   className={`w-full p-3 rounded-lg border-2 transition-all text-left ${
                     selectedProduct === product.name
-                      ? 'bg-ramo-red border-ramo-red text-white'
-                      : 'bg-white border-ramo-grayBorder hover:border-ramo-red'
+                      ? 'bg-red-600 border-red-600 text-white'
+                      : 'bg-white border-gray-200 hover:border-red-400'
                   }`}
                 >
                   <p className="font-bold">{product.name}</p>
@@ -98,7 +98,7 @@ export default function PanaderoPage() {
             </div>
             <Button
               onClick={handleBakeEvent}
-              className="w-full bg-ramo-red hover:bg-red-700 py-6"
+              className="w-full bg-red-600 hover:bg-red-700 py-6 text-white"
             >
               Confirmar
             </Button>
@@ -107,13 +107,13 @@ export default function PanaderoPage() {
       )}
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white rounded-lg p-4 border border-ramo-grayBorder text-center">
-          <p className="text-3xl font-bold text-ramo-red">{bakery?.availableProducts.length}</p>
-          <p className="text-sm text-ramo-grayDark mt-2">Productos</p>
+        <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 text-center">
+          <p className="text-3xl font-bold text-white">{bakery?.availableProducts.length}</p>
+          <p className="text-sm text-white/70 mt-2">Productos</p>
         </div>
-        <div className="bg-white rounded-lg p-4 border border-ramo-grayBorder text-center">
-          <p className="text-3xl font-bold text-ramo-red">{bakery?.reviewsCount}</p>
-          <p className="text-sm text-ramo-grayDark mt-2">Reseñas</p>
+        <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 text-center">
+          <p className="text-3xl font-bold text-white">{bakery?.reviewsCount}</p>
+          <p className="text-sm text-white/70 mt-2">Reseñas</p>
         </div>
       </div>
     </div>

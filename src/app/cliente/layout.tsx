@@ -25,10 +25,10 @@ export default function ClienteLayout({
   }
 
   return (
-    <div className="min-h-screen bg-ramo-white pb-20">
-      <div className="sticky top-0 z-50 bg-gradient-to-r from-ramo-yellow/10 to-transparent border-b-2 border-ramo-yellow/30 backdrop-blur-sm h-16 flex items-center px-4">
+    <div className="min-h-screen pb-20" style={{ backgroundColor: '#7BC3ED' }}>
+      <div className="sticky top-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20 h-16 flex items-center px-4">
         <div className="flex items-center gap-3">
-          <div className="relative h-12 w-12 rounded-lg bg-ramo-yellow/20 flex items-center justify-center">
+          <div className="relative h-12 w-12 rounded-lg bg-white/20 flex items-center justify-center">
             <Image
               src="/ramo-logo.png"
               alt="Ramo Vecino"
@@ -39,8 +39,8 @@ export default function ClienteLayout({
             />
           </div>
           <div className="flex flex-col">
-            <h1 className="font-poppins font-bold text-ramo-dark text-base leading-none">Ramo Vecino</h1>
-            <p className="text-xs text-ramo-gray/70">Pan fresco, en tu barrio</p>
+            <h1 className="font-poppins font-bold text-white text-base leading-none">Ramo Vecino</h1>
+            <p className="text-xs text-white/70">Pan fresco, en tu barrio</p>
           </div>
         </div>
       </div>
