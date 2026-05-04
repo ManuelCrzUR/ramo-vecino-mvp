@@ -114,40 +114,68 @@ export default function BakeryDetailPage({
 
             <TabsContent value="tortas" className="space-y-4 mt-6">
               {[
-                MOCK_PRODUCTS['torta-mixta'],
-                MOCK_PRODUCTS['torta-arequipe'],
-                MOCK_PRODUCTS['torta-chocolate-blanco'],
-                MOCK_PRODUCTS['torta-chocolate-negro'],
-              ].map((product) => (
-                product && (
-                  <div
-                    key={product.id}
-                    className="border-2 border-blue-200 rounded-lg p-4 bg-blue-50 hover:bg-blue-100 transition-colors cursor-pointer active:scale-95"
-                  >
-                    <div className="flex gap-4">
-                      {product.image && (
-                        <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200 relative">
-                          <Image
-                            src={product.image}
-                            alt={product.name}
-                            fill
-                            className="object-cover"
-                          />
+                { full: 'torta-mixta', portion: 'porcion-torta-mixta' },
+                { full: 'torta-arequipe', portion: 'porcion-torta-arequipe' },
+                { full: 'torta-chocolate-blanco', portion: 'porcion-torta-chocolate-blanco' },
+                { full: 'torta-chocolate-negro', portion: 'porcion-torta-chocolate-negro' },
+              ].map((ids) => {
+                const fullTorta = MOCK_PRODUCTS[ids.full]
+                const portionTorta = MOCK_PRODUCTS[ids.portion]
+                return (
+                  <div key={ids.full} className="space-y-2">
+                    {fullTorta && (
+                      <div className="border-2 border-blue-200 rounded-lg p-4 bg-blue-50 hover:bg-blue-100 transition-colors cursor-pointer active:scale-95">
+                        <div className="flex gap-4">
+                          {fullTorta.image && (
+                            <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200 relative">
+                              <Image
+                                src={fullTorta.image}
+                                alt={fullTorta.name}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                          )}
+                          <div className="flex-1">
+                            <h3 className="font-bold text-gray-900">{fullTorta.name}</h3>
+                            <p className="text-sm text-gray-600 mt-1">
+                              {fullTorta.description}
+                            </p>
+                            <p className="font-bold text-blue-600 text-lg mt-2">
+                              ${fullTorta.price.toLocaleString()}
+                            </p>
+                          </div>
                         </div>
-                      )}
-                      <div className="flex-1">
-                        <h3 className="font-bold text-gray-900">{product.name}</h3>
-                        <p className="text-sm text-gray-600 mt-1">
-                          {product.description}
-                        </p>
-                        <p className="font-bold text-blue-600 text-lg mt-2">
-                          ${product.price.toLocaleString()}
-                        </p>
                       </div>
-                    </div>
+                    )}
+                    {portionTorta && (
+                      <div className="border-2 border-cyan-200 rounded-lg p-4 bg-cyan-50 hover:bg-cyan-100 transition-colors cursor-pointer active:scale-95 ml-4">
+                        <div className="flex gap-4">
+                          {portionTorta.image && (
+                            <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200 relative">
+                              <Image
+                                src={portionTorta.image}
+                                alt={portionTorta.name}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                          )}
+                          <div className="flex-1">
+                            <h4 className="font-bold text-gray-900 text-sm">{portionTorta.name}</h4>
+                            <p className="text-xs text-gray-600 mt-1">
+                              {portionTorta.description}
+                            </p>
+                            <p className="font-bold text-cyan-600 text-base mt-2">
+                              ${portionTorta.price.toLocaleString()}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )
-              ))}
+              })}
             </TabsContent>
 
             <TabsContent value="especiales" className="space-y-4 mt-6">
