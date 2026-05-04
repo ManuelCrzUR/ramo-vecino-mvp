@@ -161,8 +161,8 @@ export default function MapViewContent({
         }
       `}</style>
 
-      <div className="relative h-[calc(100vh-64px)] w-full bg-ramo-cream">
-        <div id="map" className="w-full h-full rounded-none" />
+      <div className="fixed inset-0 top-16 w-full bg-ramo-cream flex flex-col">
+        <div id="map" className="w-full flex-1 rounded-none" />
 
         {/* Bottom Sheet with Pan Animation */}
         <AnimatePresence>
@@ -171,16 +171,16 @@ export default function MapViewContent({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 300, opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="absolute bottom-0 left-0 right-0 rounded-t-3xl max-h-96 overflow-y-auto shadow-2xl border-t-4 z-30"
-            style={{ backgroundColor: '#7BC3ED', borderTopColor: '#7BC3ED' }}
+            className="absolute bottom-0 left-0 right-0 rounded-t-3xl max-h-96 overflow-hidden shadow-2xl border-t-4 z-40"
+            style={{ borderTopColor: '#FFD700' }}
           >
-            <div className="p-6 sticky top-0 rounded-t-3xl z-40 border-b-2" style={{ backgroundColor: '#7BC3ED', borderBottomColor: '#6CB4E5' }}>
-              <div className="w-10 h-1 rounded-full mx-auto mb-4" style={{ backgroundColor: 'white' }} />
-              <h2 className="font-bold text-lg text-white">Panaderías cercanas</h2>
-              <p className="text-sm text-white/80 mt-1">{baketeriesSorted.length} panaderías</p>
+            <div className="bg-white border-b-2 border-ramo-yellow/20 rounded-t-3xl p-4">
+              <div className="w-10 h-1 bg-ramo-gray/20 rounded-full mx-auto mb-3" />
+              <h2 className="font-bold text-lg text-ramo-dark">Panaderías cercanas</h2>
+              <p className="text-sm text-ramo-gray mt-1">{baketeriesSorted.length} panaderías</p>
             </div>
 
-            <div className="p-4 space-y-2 pb-20">
+            <div className="overflow-y-auto max-h-80 p-4 space-y-2 pb-6">
               {baketeriesSorted.map((bakery, idx) => {
                 const recentEvent = events.find((e) => e.bakeryId === bakery.id)
                 const minutesAgo = recentEvent
@@ -196,18 +196,14 @@ export default function MapViewContent({
                   >
                     <Link
                       href={`/cliente/panaderia/${bakery.id}`}
-                      className="block p-4 rounded-xl border-2 transition-all duration-300 hover:shadow-lg active:scale-95"
-                      style={{
-                        backgroundColor: 'white',
-                        borderColor: 'rgba(255,255,255,0.4)',
-                      }}
+                      className="block p-4 rounded-xl bg-gradient-to-r from-ramo-cream to-white border-2 border-ramo-border hover:border-ramo-yellow transition-all duration-300 hover:shadow-lg active:scale-95"
                     >
                       <div className="flex justify-between items-start gap-3">
                         <div className="flex-1">
-                          <h3 className="font-bold text-gray-900 text-sm">{bakery.name}</h3>
-                          <p className="text-xs text-gray-600 mt-1">{bakery.address}</p>
+                          <h3 className="font-bold text-ramo-dark text-sm">{bakery.name}</h3>
+                          <p className="text-xs text-ramo-gray mt-1">{bakery.address}</p>
                           {bakery.isCertified && (
-                            <p className="text-xs font-bold mt-1" style={{ color: '#7BC3ED' }}>✔ Certificada</p>
+                            <p className="text-xs text-ramo-yellow font-bold mt-1">✔ Certificada</p>
                           )}
                         </div>
                         <div className="text-right flex flex-col items-end gap-1">
