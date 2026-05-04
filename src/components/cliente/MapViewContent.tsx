@@ -11,10 +11,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Star, Flame } from 'lucide-react'
 
 const customIcon = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNTYiIHZpZXdCb3g9IjAgMCA0OCA1NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii01MCUiIHk9Ii01MCUiIHdpZHRoPSIyMDAliIGhlaWdodD0iMjAwJSI+PGZlRHJvcFNoYWRvdyBkdj0iMiIgc3RkRGV2aWF0aW9uPSIzIiBmbG9vZC1vcGFjaXR5PSIwLjMiIC8+PC9maWx0ZXI+PC9kZWZzPjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcng9IjgiIGZpbGw9IiNGRkQ3MDAiIGZpbHRlcj0idXJsKCNzaGFkb3cpIiBzdHJva2U9IiNFMzA2MTMiIHN0cm9rZS13aWR0aD0iMiIvPjx0ZXh0IHg9IjI0IiB5PSIyOCIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzNEMUYwRiI+sPCdmoK8PC90ZXh0Pjwvc3ZnPg==',
-  iconSize: [48, 56],
-  iconAnchor: [24, 56],
-  popupAnchor: [0, -56],
+  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA2NCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii01MCUiIHk9Ii01MCUiIHdpZHRoPSIyMDAlIiBoZWlnaHQ9IjIwMCUiPjxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjQiIGZsb29kLW9wYWNpdHk9IjAuNCIvPjwvZmlsdGVyPjwvZGVmcz48cGF0aCBkPSJNMzIgMEM0OS43IDAgNjQgMTQuMyA2NCAzMmMwIDE4LTMyIDQ4LTMyIDQ4cy0zMi0zMC0zMi00OEMwIDE0LjMgMTQuMyAwIDMyIDBaIiBmaWxsPSIjRkZENzAwIiBmaWx0ZXI9InVybCgjc2hhZG93KSIgc3Ryb2tlPSIjRTMwNjEzIiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjI4IiByPSIxNiIgZmlsbD0iI0UzMDYxMyIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMjgiIHI9IjEyIiBmaWxsPSIjRkZENzAwIi8+PC9zdmc+',
+  iconSize: [64, 80],
+  iconAnchor: [32, 80],
+  popupAnchor: [0, -80],
 })
 
 const userIcon = new L.Icon({
@@ -39,9 +39,10 @@ export default function MapViewContent({
     if (!mapRef.current) {
       const map = L.map('map', { zoomControl: false }).setView(coords, 14)
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors',
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '© OpenStreetMap contributors © CARTO',
         maxZoom: 19,
+        subdomains: 'abcd',
       }).addTo(map)
 
       L.control.zoom({ position: 'topright' }).addTo(map)
@@ -71,10 +72,33 @@ export default function MapViewContent({
 
       const isRecent = minutesAgo && minutesAgo < 30
 
+      const popupContent = `
+        <div style="min-width: 200px; padding: 0;">
+          <div style="background: linear-gradient(135deg, #FFD700 0%, #E30613 100%); color: white; padding: 12px; border-radius: 8px 8px 0 0;">
+            <div style="font-weight: bold; font-size: 14px;">${bakery.name}</div>
+            <div style="font-size: 12px; margin-top: 4px; opacity: 0.9;">${bakery.address}</div>
+          </div>
+          <div style="padding: 12px; background: white; border-radius: 0 0 8px 8px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 12px; color: #6B7280;">Rating:</span>
+              <span style="font-weight: bold; color: #FFD700;">⭐ ${bakery.rating}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 12px; color: #6B7280;">Reseñas:</span>
+              <span style="font-weight: bold; color: #1a1a1a;">${bakery.reviewsCount}</span>
+            </div>
+            ${bakery.isCertified ? '<div style="padding: 6px 10px; background: #10B981; color: white; border-radius: 4px; font-size: 11px; text-align: center; font-weight: bold;">✓ Certificada</div>' : ''}
+            ${isRecent ? '<div style="margin-top: 8px; padding: 6px 10px; background: #FEE2E2; color: #E30613; border-radius: 4px; font-size: 11px; text-align: center; font-weight: bold;">🔥 Recién horneado</div>' : ''}
+          </div>
+        </div>
+      `
+
       const marker = L.marker([bakery.lat, bakery.lng], { icon: customIcon })
-        .bindTooltip(`<div style="text-align: center;"><strong>${bakery.name}</strong>${isRecent ? '<br/><span style="color: #E30613; font-weight: bold;">Recién horneado</span>' : ''}</div>`, {
+        .bindPopup(popupContent, { maxWidth: 220, className: 'ramo-popup' })
+        .bindTooltip(`<strong>${bakery.name}</strong>`, {
           permanent: false,
-          className: 'ramo-tooltip'
+          className: 'ramo-tooltip',
+          offset: [0, 0]
         })
         .addTo(mapRef.current!)
 
@@ -106,25 +130,34 @@ export default function MapViewContent({
     <>
       <style>{`
         #map {
-          filter: brightness(1.05) contrast(1.1);
+          filter: brightness(1.02) contrast(1.05);
         }
         .ramo-tooltip .leaflet-tooltip {
-          background: #FFF8E7 !important;
+          background: white !important;
           border: 2px solid #FFD700 !important;
           border-radius: 8px !important;
-          color: #3D1F0F !important;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+          color: #1a1a1a !important;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+          padding: 8px 12px !important;
+          font-weight: 600 !important;
         }
-        .ramo-tooltip .leaflet-tooltip-left::before {
-          border-left-color: #FFD700 !important;
+        .ramo-tooltip .leaflet-tooltip-bottom::before {
+          border-bottom-color: #FFD700 !important;
         }
-        @keyframes mapPulse {
-          0%, 100% {
-            box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
-          }
-          50% {
-            box-shadow: 0 0 0 10px rgba(255, 215, 0, 0);
-          }
+        .ramo-popup .leaflet-popup-content-wrapper {
+          border-radius: 8px !important;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.15) !important;
+          border: none !important;
+          padding: 0 !important;
+        }
+        .ramo-popup .leaflet-popup-content {
+          margin: 0 !important;
+          padding: 0 !important;
+          width: 100% !important;
+        }
+        .ramo-popup .leaflet-popup-tip {
+          background: white !important;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
         }
       `}</style>
 
