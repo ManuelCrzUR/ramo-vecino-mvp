@@ -37,7 +37,8 @@ export default function KitsPage() {
           <button
             key={kit.id}
             onClick={() => setActiveKitId(kit.id)}
-            className="bg-white border border-ramo-grayBorder rounded-lg p-4 hover:bg-ramo-grayLight transition-colors text-left"
+            className="border border-ramo-grayBorder rounded-lg p-4 hover:opacity-80 transition-opacity text-left"
+            style={{ backgroundColor: 'rgba(231, 76, 87, 0.1)' }}
           >
             <div className="flex items-start justify-between">
               <div>
@@ -93,7 +94,7 @@ export default function KitsPage() {
         </div>
       )}
 
-      <div className="bg-white rounded-lg p-6 border border-ramo-grayBorder space-y-4">
+      <div className="bg-white rounded-lg p-6 space-y-4" style={{ borderWidth: '1px', borderColor: '#1F6FA8' }}>
         <h2 className="font-bold text-ramo-grayDark flex items-center gap-2">
           <Package size={20} />
           Mis Pedidos Recientes
