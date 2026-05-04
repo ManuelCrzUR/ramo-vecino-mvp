@@ -116,8 +116,8 @@ export default function PanaderoPage() {
       )}
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="rounded-xl p-4 text-center border-2 border-gray-300" style={{ backgroundColor: '#FFFFFF' }}>
-          <p className="text-3xl font-bold text-ramo-dark">{bakery?.availableProducts.length}</p>
+        <div className="rounded-xl p-4 text-center border-2" style={{ backgroundColor: '#FFFFFF', borderColor: '#1F6FA8' }}>
+          <p className="text-3xl font-bold" style={{ color: '#1F6FA8' }}>{bakery?.availableProducts.length}</p>
           <p className="text-sm text-ramo-gray mt-2">Productos</p>
         </div>
         <div className="rounded-xl p-4 text-center border-2 border-gray-300" style={{ backgroundColor: '#FFFFFF' }}>
