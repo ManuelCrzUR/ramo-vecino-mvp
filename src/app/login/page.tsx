@@ -87,49 +87,6 @@ export default function LoginPage() {
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">
-          {/* Role Selector */}
-          <div className="space-y-3">
-            <label className="block text-sm font-bold text-white">¿Cuál es tu rol?</label>
-            <div className="grid grid-cols-2 gap-3">
-              <motion.button
-                type="button"
-                onClick={() => {
-                  setRole('cliente')
-                  setEmail('')
-                  setPassword('')
-                  setError('')
-                }}
-                whileHover={{ scale: 1.02 }}
-                className={`py-3 px-4 rounded-xl font-medium transition-all border-2 flex items-center justify-center gap-2 ${
-                  role === 'cliente'
-                    ? 'bg-ramo-yellow border-ramo-yellow text-ramo-dark'
-                    : 'bg-white/20 border-white/40 text-white hover:bg-white/30 hover:border-white/60'
-                }`}
-              >
-                <User size={18} />
-                Cliente
-              </motion.button>
-              <motion.button
-                type="button"
-                onClick={() => {
-                  setRole('panadero')
-                  setEmail('')
-                  setPassword('')
-                  setError('')
-                }}
-                whileHover={{ scale: 1.02 }}
-                className={`py-3 px-4 rounded-xl font-medium transition-all border-2 flex items-center justify-center gap-2 ${
-                  role === 'panadero'
-                    ? 'bg-ramo-red border-ramo-red text-white'
-                    : 'bg-white/20 border-white/40 text-white hover:bg-white/30 hover:border-white/60'
-                }`}
-              >
-                <ChefHat size={18} />
-                Panadero
-              </motion.button>
-            </div>
-          </div>
-
           {/* Email Input */}
           <div className="space-y-2">
             <label className="block text-sm font-bold text-white">Email</label>
@@ -187,47 +144,38 @@ export default function LoginPage() {
           >
             {isLoading ? 'Entrando...' : 'Entrar'}
           </Button>
+
+          {/* Demo Buttons */}
+          <div className="pt-2">
+            <p className="text-center text-sm text-white/70 font-medium mb-3">O prueba con demo</p>
+            <div className="grid grid-cols-2 gap-3">
+              <motion.button
+                type="button"
+                onClick={() => handleDemoLogin('cliente')}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="py-3 px-4 bg-white/20 border-2 border-white/40 rounded-lg font-bold text-white hover:bg-white/30 hover:border-white/60 transition-all flex items-center justify-center gap-2"
+              >
+                <User size={16} />
+                Cliente
+              </motion.button>
+              <motion.button
+                type="button"
+                onClick={() => handleDemoLogin('panadero')}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="py-3 px-4 bg-white/20 border-2 border-white/40 rounded-lg font-bold text-white hover:bg-white/30 hover:border-white/60 transition-all flex items-center justify-center gap-2"
+              >
+                <ChefHat size={16} />
+                Panadero
+              </motion.button>
+            </div>
+          </div>
         </form>
 
-        {/* Demo Divider */}
-        <div className="relative my-8">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-white/30"></div>
-          </div>
-          <div className="relative flex justify-center">
-            <span className="px-3 text-white/70 text-xs font-medium uppercase" style={{ backgroundColor: '#7BC3ED' }}>
-              O prueba con demo
-            </span>
-          </div>
-        </div>
-
-        {/* Demo Buttons */}
-        <div className="grid grid-cols-2 gap-3">
-          <motion.button
-            type="button"
-            onClick={() => handleDemoLogin('cliente')}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="py-3 px-4 bg-white/20 border-2 border-white/40 rounded-lg font-bold text-white hover:bg-white/30 hover:border-white/60 transition-all flex items-center justify-center gap-2"
-          >
-            <User size={16} />
-            Demo
-          </motion.button>
-          <motion.button
-            type="button"
-            onClick={() => handleDemoLogin('panadero')}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="py-3 px-4 bg-white/20 border-2 border-white/40 rounded-lg font-bold text-white hover:bg-white/30 hover:border-white/60 transition-all flex items-center justify-center gap-2"
-          >
-            <ChefHat size={16} />
-            Demo
-          </motion.button>
-        </div>
-
         {/* Hint */}
-        <p className="text-center text-xs text-white/60 font-medium mt-6">
-          Ambas cuentas usan: demo123
+        <p className="text-center text-xs text-white/60 font-medium mt-4">
+          Credenciales: demo123
         </p>
       </motion.div>
     </div>
