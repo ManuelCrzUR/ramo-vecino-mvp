@@ -51,7 +51,7 @@ export default function BakeryDetailPage({
           </button>
         </div>
 
-        <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white p-6 pb-12 space-y-4">
+        <div className="text-white p-6 pb-12 space-y-4" style={{ background: 'linear-gradient(to bottom right, #E74C57, #D63846)' }}>
           <h1 className="text-3xl font-bold">{bakery.name}</h1>
           <div className="space-y-3 text-sm">
             <div className="flex items-center gap-2">
@@ -104,7 +104,7 @@ export default function BakeryDetailPage({
           )}
         </div>
 
-        <div className="bg-white -mt-6 rounded-t-3xl px-6 py-6">
+        <div className="-mt-6 rounded-t-3xl px-6 py-6" style={{ backgroundColor: '#FFFFFF' }}>
           <Tabs defaultValue="tortas" className="w-full">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="tortas">Tortas</TabsTrigger>

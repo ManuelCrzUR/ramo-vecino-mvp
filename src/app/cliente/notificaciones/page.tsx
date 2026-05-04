@@ -9,7 +9,7 @@ export default function NotificacionesPage() {
   )
 
   return (
-    <div className="min-h-screen bg-white p-6 space-y-4 pb-24">
+    <div className="min-h-screen p-6 space-y-4 pb-24" style={{ backgroundColor: '#F7F8FA' }}>
       <h1 className="text-2xl font-bold text-ramo-dark mb-6">Hornadas Recientes</h1>
 
       {sortedEvents.length === 0 ? (
@@ -26,7 +26,7 @@ export default function NotificacionesPage() {
             <div
               key={event.id}
               className="rounded-xl p-4 border-2 border-ramo-border hover:shadow-lg transition-all"
-              style={{ backgroundColor: 'rgba(123, 195, 237, 0.15)' }}
+              style={{ backgroundColor: '#FFFFFF' }}
             >
               <div className="flex gap-4">
                 <div className="flex items-center justify-center w-12 h-12 bg-orange-400/20 rounded-lg flex-shrink-0">

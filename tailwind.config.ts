@@ -15,13 +15,13 @@ const config: Config = {
       colors: {
         ramo: {
           yellow: '#FFD700',      // Amarillo Ramo (principal)
-          red: '#E30613',         // Rojo Ramo
+          red: '#E74C57',         // Rojo Ramo (nuevo)
           chocolate: '#3D1F0F',   // Chocolate (oscuro)
           cream: '#FFF8E7',       // Crema (fondo)
           white: '#FFFFFF',
-          dark: '#1a1a1a',        // Texto oscuro
+          dark: '#1E1E1E',        // Texto oscuro (actualizado)
           gray: '#6B7280',        // Gris neutral
-          lightGray: '#F3F4F6',   // Gris claro
+          lightGray: '#F7F8FA',   // Fondo claro (actualizado)
           border: '#E5E7EB',      // Bordes
           success: '#10B981',
           alert: '#F97316',

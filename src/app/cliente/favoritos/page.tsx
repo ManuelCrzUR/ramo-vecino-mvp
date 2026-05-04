@@ -22,7 +22,7 @@ export default function FavoritosPage() {
     .filter(Boolean)
 
   return (
-    <div className="min-h-screen bg-white p-6 pb-24">
+    <div className="min-h-screen p-6 pb-24" style={{ backgroundColor: '#F7F8FA' }}>
       <h1 className="text-2xl font-bold text-ramo-dark mb-6">Mis Favoritos</h1>
 
       {/* Selector Tabs */}
@@ -65,7 +65,7 @@ export default function FavoritosPage() {
                 key={bakery.id}
                 href={`/cliente/panaderia/${bakery.id}`}
                 className="block rounded-xl p-4 border-2 border-ramo-border hover:shadow-lg transition-all"
-                style={{ backgroundColor: 'rgba(123, 195, 237, 0.15)' }}
+                style={{ backgroundColor: '#FFFFFF' }}
               >
                 <div className="flex justify-between items-start gap-3">
                   <div className="flex-1">
@@ -102,7 +102,7 @@ export default function FavoritosPage() {
                 <div
                   key={product.id}
                   className="rounded-xl overflow-hidden border-2 border-ramo-border hover:shadow-lg transition-all flex flex-col"
-                  style={{ backgroundColor: 'rgba(123, 195, 237, 0.15)' }}
+                  style={{ backgroundColor: '#FFFFFF' }}
                 >
                   {/* Image Container */}
                   <div className="w-full aspect-square bg-gray-200 relative overflow-hidden">

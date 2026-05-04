@@ -17,8 +17,8 @@ export default function PerfilPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white p-6 space-y-6 pb-24">
-      <div className="rounded-xl p-6 border-2 border-ramo-border text-center space-y-4" style={{ backgroundColor: 'rgba(123, 195, 237, 0.15)' }}>
+    <div className="min-h-screen p-6 space-y-6 pb-24" style={{ backgroundColor: '#F7F8FA' }}>
+      <div className="rounded-xl p-6 border-2 border-ramo-border text-center space-y-4" style={{ backgroundColor: '#FFFFFF' }}>
         <Avatar className="w-20 h-20 mx-auto border-4 border-blue-300">
           <AvatarFallback className="bg-blue-200 text-ramo-dark text-2xl font-bold">
             {user?.name.charAt(0).toUpperCase()}
@@ -32,7 +32,7 @@ export default function PerfilPage() {
         </div>
       </div>
 
-      <div className="rounded-xl p-6 border-2 border-ramo-border space-y-4" style={{ backgroundColor: 'rgba(123, 195, 237, 0.15)' }}>
+      <div className="rounded-xl p-6 border-2 border-ramo-border space-y-4" style={{ backgroundColor: '#FFFFFF' }}>
         <h3 className="font-bold text-ramo-dark">Sellos de Lealtad</h3>
         <div className="flex items-center justify-between">
           <div>
