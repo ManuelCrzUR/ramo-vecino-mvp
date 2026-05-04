@@ -39,9 +39,9 @@ export default function MapViewContent({
     if (!mapRef.current) {
       const map = L.map('map', { zoomControl: false }).setView(coords, 14)
 
-      L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.png', {
-        attribution: '© Stadia Maps © OpenStreetMap',
-        maxZoom: 20,
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19,
       }).addTo(map)
 
       L.control.zoom({ position: 'topright' }).addTo(map)
