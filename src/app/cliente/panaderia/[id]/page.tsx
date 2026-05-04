@@ -7,7 +7,7 @@ import { useUser } from '@/lib/store'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Badge } from '@/components/ui/badge'
-import { ArrowLeft, Heart, MapPin, Phone } from 'lucide-react'
+import { ArrowLeft, Heart, MapPin, Phone, Star, CheckCircle, Flame } from 'lucide-react'
 
 export default function BakeryDetailPage({
   params,
@@ -63,12 +63,14 @@ export default function BakeryDetailPage({
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Badge variant="secondary" className="bg-white/20">
-                ⭐ {bakery.rating} ({bakery.reviewsCount})
+              <Badge variant="secondary" className="bg-white/20 flex items-center gap-1">
+                <Star size={14} fill="white" />
+                {bakery.rating} ({bakery.reviewsCount})
               </Badge>
               {bakery.isCertified && (
-                <Badge variant="secondary" className="bg-ramo-success">
-                  ✓ Certificada
+                <Badge variant="secondary" className="bg-ramo-success flex items-center gap-1">
+                  <CheckCircle size={14} />
+                  Certificada
                 </Badge>
               )}
             </div>
@@ -84,8 +86,9 @@ export default function BakeryDetailPage({
           </div>
 
           {minutesAgo !== null && minutesAgo < 30 && (
-            <div className="bg-ramo-alert/20 rounded-lg p-2 text-sm">
-              🔥 Acaban de hornear hace {minutesAgo} minutos
+            <div className="bg-ramo-alert/20 rounded-lg p-2 text-sm flex items-center gap-2">
+              <Flame size={16} />
+              Acaban de hornear hace {minutesAgo} minutos
             </div>
           )}
         </div>

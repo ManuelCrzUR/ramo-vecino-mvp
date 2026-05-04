@@ -23,7 +23,7 @@ export default function SplashPage() {
   }, [user, router])
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-ramo-yellow via-ramo-cream to-white relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-ramo-yellow/20 via-white to-ramo-cream relative overflow-hidden">
       {/* Animated background shapes */}
       <motion.div
         className="absolute top-10 right-10 w-40 h-40 rounded-full bg-ramo-yellow/10 blur-3xl"

@@ -3,6 +3,7 @@
 import { MOCK_BAKERIES } from '@/lib/mockData'
 import { useUser } from '@/lib/store'
 import Link from 'next/link'
+import { Star } from 'lucide-react'
 
 export default function FavoritosPage() {
   const user = useUser((state) => state.user)
@@ -35,7 +36,10 @@ export default function FavoritosPage() {
                   <h3 className="font-bold text-ramo-grayDark">{bakery.name}</h3>
                   <p className="text-xs text-ramo-grayDark mt-1">{bakery.address}</p>
                 </div>
-                <p className="font-bold text-ramo-blue">⭐ {bakery.rating}</p>
+                <div className="flex items-center gap-1 font-bold text-ramo-yellow">
+                  <Star size={16} fill="currentColor" />
+                  {bakery.rating}
+                </div>
               </div>
             </Link>
           ))}

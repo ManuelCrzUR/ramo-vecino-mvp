@@ -5,7 +5,7 @@ import { useUser } from '@/lib/store'
 import { MOCK_BAKERIES, MOCK_PRODUCTS, MOCK_BAKE_EVENTS } from '@/lib/mockData'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
-import { Flame, X } from 'lucide-react'
+import { Flame, X, Star, CheckCircle } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function PanaderoPage() {
@@ -36,8 +36,16 @@ export default function PanaderoPage() {
           <h1 className="text-3xl font-bold">{bakery.name}</h1>
           <div className="space-y-2">
             <p className="text-sm">{bakery.address}</p>
-            <p className="text-sm">⭐ {bakery.rating} ({bakery.reviewsCount} opiniones)</p>
-            {bakery.isCertified && <p className="text-sm">✓ Certificada</p>}
+            <div className="flex items-center gap-1 text-sm">
+              <Star size={16} fill="white" />
+              {bakery.rating} ({bakery.reviewsCount} opiniones)
+            </div>
+            {bakery.isCertified && (
+              <div className="flex items-center gap-1 text-sm">
+                <CheckCircle size={16} />
+                Certificada
+              </div>
+            )}
           </div>
           {minutesAgo !== null && (
             <p className="text-sm bg-white/20 rounded px-3 py-1 inline-block">

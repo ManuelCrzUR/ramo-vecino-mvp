@@ -1,6 +1,7 @@
 'use client'
 
 import { MOCK_BAKE_EVENTS, MOCK_BAKERIES } from '@/lib/mockData'
+import { Flame, Clock } from 'lucide-react'
 
 export default function NotificacionesPage() {
   const sortedEvents = [...MOCK_BAKE_EVENTS].sort(
@@ -21,15 +22,18 @@ export default function NotificacionesPage() {
             className="bg-white border-l-4 border-ramo-alert rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
           >
             <div className="flex gap-4">
-              <div className="text-3xl">🔥</div>
+              <div className="flex items-center justify-center w-10 h-10 bg-ramo-alert/20 rounded-lg">
+                <Flame size={20} className="text-ramo-alert" />
+              </div>
               <div className="flex-1">
                 <h3 className="font-bold text-ramo-grayDark">{bakery?.name}</h3>
                 <p className="text-sm text-ramo-grayDark mt-1">
                   Acaban de hornear {event.product}
                 </p>
-                <p className="text-xs text-ramo-grayDark mt-2">
-                  ⏱️ Hace {minutesAgo} minutos
-                </p>
+                <div className="flex items-center gap-1 text-xs text-ramo-grayDark mt-2">
+                  <Clock size={12} />
+                  Hace {minutesAgo} minutos
+                </div>
               </div>
             </div>
           </div>

@@ -8,6 +8,7 @@ import { useGeolocation } from '@/hooks/useGeolocation'
 import { Bakery } from '@/types'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Star, Flame } from 'lucide-react'
 
 const customIcon = new L.Icon({
   iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNTYiIHZpZXdCb3g9IjAgMCA0OCA1NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii01MCUiIHk9Ii01MCUiIHdpZHRoPSIyMDAliIGhlaWdodD0iMjAwJSI+PGZlRHJvcFNoYWRvdyBkdj0iMiIgc3RkRGV2aWF0aW9uPSIzIiBmbG9vZC1vcGFjaXR5PSIwLjMiIC8+PC9maWx0ZXI+PC9kZWZzPjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcng9IjgiIGZpbGw9IiNGRkQ3MDAiIGZpbHRlcj0idXJsKCNzaGFkb3cpIiBzdHJva2U9IiNFMzA2MTMiIHN0cm9rZS13aWR0aD0iMiIvPjx0ZXh0IHg9IjI0IiB5PSIyOCIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzNEMUYwRiI+sPCdmoK8PC90ZXh0Pjwvc3ZnPg==',
@@ -71,7 +72,7 @@ export default function MapViewContent({
       const isRecent = minutesAgo && minutesAgo < 30
 
       const marker = L.marker([bakery.lat, bakery.lng], { icon: customIcon })
-        .bindTooltip(`<div style="text-align: center;"><strong>${bakery.name}</strong>${isRecent ? '<br/>🔥 Recién horneado' : ''}</div>`, {
+        .bindTooltip(`<div style="text-align: center;"><strong>${bakery.name}</strong>${isRecent ? '<br/><span style="color: #E30613; font-weight: bold;">Recién horneado</span>' : ''}</div>`, {
           permanent: false,
           className: 'ramo-tooltip'
         })
@@ -168,13 +169,19 @@ export default function MapViewContent({
                           <h3 className="font-bold text-ramo-dark text-sm">{bakery.name}</h3>
                           <p className="text-xs text-ramo-gray mt-1">{bakery.address}</p>
                           {bakery.isCertified && (
-                            <p className="text-xs text-ramo-yellow font-bold mt-1">✓ Certificada</p>
+                            <p className="text-xs text-ramo-yellow font-bold mt-1">✔ Certificada</p>
                           )}
                         </div>
-                        <div className="text-right">
-                          <p className="text-sm font-bold text-ramo-yellow">⭐ {bakery.rating}</p>
+                        <div className="text-right flex flex-col items-end gap-1">
+                          <div className="flex items-center gap-1 text-sm font-bold text-ramo-yellow">
+                            <Star size={16} fill="currentColor" />
+                            {bakery.rating}
+                          </div>
                           {minutesAgo !== null && minutesAgo < 30 && (
-                            <p className="text-xs text-ramo-red font-bold animate-pulse">🔥 Hace {minutesAgo}m</p>
+                            <div className="flex items-center gap-1 text-xs text-ramo-red font-bold animate-pulse">
+                              <Flame size={14} fill="currentColor" />
+                              Hace {minutesAgo}m
+                            </div>
                           )}
                         </div>
                       </div>

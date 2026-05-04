@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useUser } from '@/lib/store'
+import { User, ChefHat } from 'lucide-react'
 
 export default function OnboardingPage() {
   const router = useRouter()
@@ -73,11 +74,11 @@ export default function OnboardingPage() {
           >
             <div className="space-y-3">
               <motion.div
-                className="text-5xl"
+                className="flex justify-center"
                 animate={selected === 'cliente' ? { scale: [1, 1.1, 1] } : {}}
                 transition={{ duration: 0.5 }}
               >
-                👤
+                <User size={48} className={`${selected === 'cliente' ? 'text-ramo-chocolate' : 'text-ramo-yellow'}`} />
               </motion.div>
               <div>
                 <h3 className={`text-lg font-bold ${selected === 'cliente' ? 'text-ramo-chocolate' : 'text-ramo-dark'}`}>
@@ -103,11 +104,11 @@ export default function OnboardingPage() {
           >
             <div className="space-y-3">
               <motion.div
-                className="text-5xl"
+                className="flex justify-center"
                 animate={selected === 'panadero' ? { scale: [1, 1.1, 1] } : {}}
                 transition={{ duration: 0.5 }}
               >
-                👨‍🍳
+                <ChefHat size={48} className={`${selected === 'panadero' ? 'text-white' : 'text-ramo-red'}`} />
               </motion.div>
               <div>
                 <h3 className={`text-lg font-bold ${selected === 'panadero' ? 'text-white' : 'text-ramo-dark'}`}>

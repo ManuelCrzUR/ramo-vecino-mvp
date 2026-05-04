@@ -8,7 +8,7 @@ import { useUser } from '@/lib/store'
 import { MOCK_USERS } from '@/lib/mockData'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, User, ChefHat } from 'lucide-react'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -98,13 +98,14 @@ export default function LoginPage() {
                   setError('')
                 }}
                 whileHover={{ scale: 1.02 }}
-                className={`py-3 px-4 rounded-xl font-medium transition-all border-2 ${
+                className={`py-3 px-4 rounded-xl font-medium transition-all border-2 flex items-center justify-center gap-2 ${
                   role === 'cliente'
                     ? 'bg-ramo-yellow border-ramo-yellow text-ramo-dark'
                     : 'bg-white border-ramo-yellow/20 text-ramo-dark hover:border-ramo-yellow/50'
                 }`}
               >
-                👤 Cliente
+                <User size={18} />
+                Cliente
               </motion.button>
               <motion.button
                 type="button"
@@ -115,13 +116,14 @@ export default function LoginPage() {
                   setError('')
                 }}
                 whileHover={{ scale: 1.02 }}
-                className={`py-3 px-4 rounded-xl font-medium transition-all border-2 ${
+                className={`py-3 px-4 rounded-xl font-medium transition-all border-2 flex items-center justify-center gap-2 ${
                   role === 'panadero'
                     ? 'bg-ramo-red border-ramo-red text-white'
                     : 'bg-white border-ramo-red/20 text-ramo-dark hover:border-ramo-red/50'
                 }`}
               >
-                👨‍🍳 Panadero
+                <ChefHat size={18} />
+                Panadero
               </motion.button>
             </div>
           </div>
@@ -196,18 +198,20 @@ export default function LoginPage() {
             onClick={() => handleDemoLogin('cliente')}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="py-3 px-4 bg-white border-2 border-ramo-yellow/50 rounded-lg font-bold text-ramo-dark hover:border-ramo-yellow transition-all"
+            className="py-3 px-4 bg-white border-2 border-ramo-yellow/50 rounded-lg font-bold text-ramo-dark hover:border-ramo-yellow transition-all flex items-center justify-center gap-2"
           >
-            Demo Cliente
+            <User size={16} />
+            Demo
           </motion.button>
           <motion.button
             type="button"
             onClick={() => handleDemoLogin('panadero')}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="py-3 px-4 bg-white border-2 border-ramo-red/50 rounded-lg font-bold text-ramo-dark hover:border-ramo-red transition-all"
+            className="py-3 px-4 bg-white border-2 border-ramo-red/50 rounded-lg font-bold text-ramo-dark hover:border-ramo-red transition-all flex items-center justify-center gap-2"
           >
-            Demo Panadero
+            <ChefHat size={16} />
+            Demo
           </motion.button>
         </div>
 
