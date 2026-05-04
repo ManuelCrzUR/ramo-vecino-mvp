@@ -61,14 +61,14 @@ export default function PanaderoPage() {
           animate={{ scale: [1, 1.05, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
           className="w-full text-white font-bold py-6 rounded-lg flex items-center justify-center gap-2 text-lg transition-all border-2"
-          style={{ backgroundColor: '#FF6D2D', borderColor: '#FF6D2D' }}
+          style={{ backgroundColor: '#0B7E7E', borderColor: '#0B7E7E' }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#E55A1A'
-            e.currentTarget.style.borderColor = '#E55A1A'
+            e.currentTarget.style.backgroundColor = '#065F6F'
+            e.currentTarget.style.borderColor = '#065F6F'
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = '#FF6D2D'
-            e.currentTarget.style.borderColor = '#FF6D2D'
+            e.currentTarget.style.backgroundColor = '#0B7E7E'
+            e.currentTarget.style.borderColor = '#0B7E7E'
           }}
         >
           <Flame size={28} />
