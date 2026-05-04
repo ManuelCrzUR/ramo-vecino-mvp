@@ -55,9 +55,9 @@ export default function LoginPage() {
   const roleTextColor = role === 'cliente' ? 'ramo-dark' : 'white'
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-100 via-orange-50 to-red-50 p-6 flex flex-col items-center justify-center">
+    <div className="min-h-screen p-6 flex flex-col items-center justify-center" style={{ backgroundColor: '#7BC3ED' }}>
       <motion.div
-        className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8"
+        className="w-full max-w-md"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -65,7 +65,7 @@ export default function LoginPage() {
         {/* Back Button */}
         <button
           onClick={() => router.back()}
-          className="mb-6 flex items-center gap-2 text-ramo-gray hover:text-ramo-dark transition-colors"
+          className="mb-6 flex items-center gap-2 text-white/70 hover:text-white transition-colors"
         >
           <ArrowLeft size={20} />
           <span className="text-sm font-medium">Atrás</span>
@@ -80,14 +80,14 @@ export default function LoginPage() {
             height={60}
             className="h-16 w-auto mx-auto"
           />
-          <h1 className="text-4xl font-bold text-ramo-dark">Inicia sesión</h1>
-          <p className="text-ramo-gray">Accede a tu cuenta de Ramo Vecino</p>
+          <h1 className="text-4xl font-bold text-white">Inicia sesión</h1>
+          <p className="text-white/80">Accede a tu cuenta de Ramo Vecino</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">
           {/* Role Selector */}
           <div className="space-y-3">
-            <label className="block text-sm font-bold text-ramo-dark">¿Cuál es tu rol?</label>
+            <label className="block text-sm font-bold text-white">¿Cuál es tu rol?</label>
             <div className="grid grid-cols-2 gap-3">
               <motion.button
                 type="button"
@@ -101,7 +101,7 @@ export default function LoginPage() {
                 className={`py-3 px-4 rounded-xl font-medium transition-all border-2 flex items-center justify-center gap-2 ${
                   role === 'cliente'
                     ? 'bg-ramo-yellow border-ramo-yellow text-ramo-dark'
-                    : 'bg-white border-ramo-yellow/20 text-ramo-dark hover:border-ramo-yellow/50'
+                    : 'bg-white/20 border-white/40 text-white hover:bg-white/30 hover:border-white/60'
                 }`}
               >
                 <User size={18} />
@@ -119,7 +119,7 @@ export default function LoginPage() {
                 className={`py-3 px-4 rounded-xl font-medium transition-all border-2 flex items-center justify-center gap-2 ${
                   role === 'panadero'
                     ? 'bg-ramo-red border-ramo-red text-white'
-                    : 'bg-white border-ramo-red/20 text-ramo-dark hover:border-ramo-red/50'
+                    : 'bg-white/20 border-white/40 text-white hover:bg-white/30 hover:border-white/60'
                 }`}
               >
                 <ChefHat size={18} />
@@ -130,27 +130,27 @@ export default function LoginPage() {
 
           {/* Email Input */}
           <div className="space-y-2">
-            <label className="block text-sm font-bold text-ramo-dark">Email</label>
+            <label className="block text-sm font-bold text-white">Email</label>
             <Input
               type="email"
               placeholder="tu@correo.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="rounded-lg border-2 border-ramo-border focus:border-ramo-yellow focus:ring-0"
+              className="rounded-lg border-2 border-white/30 bg-white/10 text-white placeholder:text-white/50 focus:border-white/60 focus:ring-0"
             />
           </div>
 
           {/* Password Input */}
           <div className="space-y-2">
-            <label className="block text-sm font-bold text-ramo-dark">Contraseña</label>
+            <label className="block text-sm font-bold text-white">Contraseña</label>
             <Input
               type="password"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="rounded-lg border-2 border-ramo-border focus:border-ramo-yellow focus:ring-0"
+              className="rounded-lg border-2 border-white/30 bg-white/10 text-white placeholder:text-white/50 focus:border-white/60 focus:ring-0"
             />
           </div>
 
@@ -169,10 +169,10 @@ export default function LoginPage() {
           <Button
             type="submit"
             disabled={isLoading}
-            className={`w-full py-6 font-bold rounded-lg transition-all ${
+            className={`w-full py-6 font-bold rounded-xl transition-all text-white ${
               role === 'cliente'
-                ? 'bg-ramo-yellow text-ramo-dark hover:bg-yellow-500'
-                : 'bg-ramo-red text-white hover:bg-red-700'
+                ? 'bg-ramo-yellow hover:bg-yellow-500 text-ramo-dark'
+                : 'bg-ramo-red hover:bg-red-700'
             }`}
           >
             {isLoading ? 'Entrando...' : 'Entrar'}
@@ -182,10 +182,10 @@ export default function LoginPage() {
         {/* Demo Divider */}
         <div className="relative my-8">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-ramo-border"></div>
+            <div className="w-full border-t border-white/30"></div>
           </div>
           <div className="relative flex justify-center">
-            <span className="px-3 bg-gradient-to-b from-ramo-cream via-white to-ramo-cream text-ramo-gray text-xs font-medium uppercase">
+            <span className="px-3 text-white/70 text-xs font-medium uppercase" style={{ backgroundColor: '#7BC3ED' }}>
               O prueba con demo
             </span>
           </div>
@@ -198,7 +198,7 @@ export default function LoginPage() {
             onClick={() => handleDemoLogin('cliente')}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="py-3 px-4 bg-white border-2 border-ramo-yellow/50 rounded-lg font-bold text-ramo-dark hover:border-ramo-yellow transition-all flex items-center justify-center gap-2"
+            className="py-3 px-4 bg-white/20 border-2 border-white/40 rounded-lg font-bold text-white hover:bg-white/30 hover:border-white/60 transition-all flex items-center justify-center gap-2"
           >
             <User size={16} />
             Demo
@@ -208,7 +208,7 @@ export default function LoginPage() {
             onClick={() => handleDemoLogin('panadero')}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="py-3 px-4 bg-white border-2 border-ramo-red/50 rounded-lg font-bold text-ramo-dark hover:border-ramo-red transition-all flex items-center justify-center gap-2"
+            className="py-3 px-4 bg-white/20 border-2 border-white/40 rounded-lg font-bold text-white hover:bg-white/30 hover:border-white/60 transition-all flex items-center justify-center gap-2"
           >
             <ChefHat size={16} />
             Demo
@@ -216,7 +216,7 @@ export default function LoginPage() {
         </div>
 
         {/* Hint */}
-        <p className="text-center text-xs text-ramo-gray/60 font-medium mt-6">
+        <p className="text-center text-xs text-white/60 font-medium mt-6">
           Ambas cuentas usan: demo123
         </p>
       </motion.div>
