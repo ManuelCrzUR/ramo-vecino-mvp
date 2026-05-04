@@ -106,19 +106,6 @@ export default function MapViewContent({
 
       marker.on('click', () => setSelectedBakery(bakery))
       markersRef.current.push(marker)
-
-      if (isRecent) {
-        const pulseCircle = L.circleMarker([bakery.lat, bakery.lng], {
-          radius: 30,
-          fillColor: '#FFD700',
-          color: '#E30613',
-          weight: 2,
-          opacity: 0.8,
-          fillOpacity: 0.1,
-        }).addTo(mapRef.current!)
-
-        markersRef.current.push(pulseCircle as any)
-      }
     })
   }, [bakeries, events])
 
