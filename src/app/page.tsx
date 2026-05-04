@@ -12,15 +12,11 @@ export default function SplashPage() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (user) {
-        router.push(`/${user.role}`)
-      } else {
-        router.push('/login')
-      }
+      router.push('/login')
     }, 2500)
 
     return () => clearTimeout(timer)
-  }, [user, router])
+  }, [router])
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden" style={{ backgroundColor: '#FF6D2D' }}>
