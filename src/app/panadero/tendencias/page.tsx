@@ -33,14 +33,14 @@ export default function TendenciasPage() {
             <YAxis />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#fff',
+                backgroundColor: '#FF6D2D',
                 border: '1px solid #E5E7EB',
               }}
             />
             <Legend />
-            <Bar dataKey="Chocoramo" fill="#E30613" />
-            <Bar dataKey="Arequipe" fill="#0099FF" />
-            <Bar dataKey="Blanco" fill="#F3F4F6" />
+            <Bar dataKey="Torta Mixta" fill="#E30613" />
+            <Bar dataKey="Torta Arequipe" fill="#0099FF" />
+            <Bar dataKey="Chocoramo Fresh" fill="#FF6D2D" />
           </BarChart>
         </ResponsiveContainer>
       </div>
