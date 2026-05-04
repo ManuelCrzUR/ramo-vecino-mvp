@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, use } from 'react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { MOCK_BAKERIES, MOCK_PRODUCTS, MOCK_COMBOS, MOCK_BAKE_EVENTS } from '@/lib/mockData'
 import { useUser } from '@/lib/store'
@@ -104,33 +105,80 @@ export default function BakeryDetailPage({
         </div>
 
         <div className="bg-white -mt-6 rounded-t-3xl px-6 py-6">
-          <Tabs defaultValue="productos" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="productos">Productos</TabsTrigger>
+          <Tabs defaultValue="tortas" className="w-full">
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="tortas">Tortas</TabsTrigger>
+              <TabsTrigger value="especiales">Especiales</TabsTrigger>
               <TabsTrigger value="combos">Combos</TabsTrigger>
               <TabsTrigger value="resenas">Reseñas</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="productos" className="space-y-4 mt-6">
-              {bakeryProducts &&
-                Object.values(bakeryProducts).map((product) => (
+            <TabsContent value="tortas" className="space-y-4 mt-6">
+              {[
+                MOCK_PRODUCTS['torta-mixta'],
+                MOCK_PRODUCTS['torta-arequipe'],
+                MOCK_PRODUCTS['torta-chocolate-blanco'],
+                MOCK_PRODUCTS['torta-chocolate-negro'],
+              ].map((product) => (
+                product && (
                   <div
                     key={product.id}
                     className="border-2 border-blue-200 rounded-lg p-4 bg-blue-50 hover:bg-blue-100 transition-colors cursor-pointer active:scale-95"
                   >
-                    <div className="flex justify-between items-start">
+                    <div className="flex gap-4">
+                      {product.image && (
+                        <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200 relative">
+                          <Image
+                            src={product.image}
+                            alt={product.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      )}
                       <div className="flex-1">
                         <h3 className="font-bold text-gray-900">{product.name}</h3>
                         <p className="text-sm text-gray-600 mt-1">
                           {product.description}
                         </p>
+                        <p className="font-bold text-blue-600 text-lg mt-2">
+                          ${product.price.toLocaleString()}
+                        </p>
                       </div>
-                      <p className="font-bold text-blue-600 text-lg ml-4 whitespace-nowrap">
-                        ${product.price.toLocaleString()}
+                    </div>
+                  </div>
+                )
+              ))}
+            </TabsContent>
+
+            <TabsContent value="especiales" className="space-y-4 mt-6">
+              {MOCK_PRODUCTS['chocoramo-fresh'] && (
+                <div className="border-2 border-orange-200 rounded-lg p-4 bg-orange-50 hover:bg-orange-100 transition-colors cursor-pointer active:scale-95">
+                  <div className="flex gap-4">
+                    {MOCK_PRODUCTS['chocoramo-fresh'].image && (
+                      <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200 relative">
+                        <Image
+                          src={MOCK_PRODUCTS['chocoramo-fresh'].image}
+                          alt={MOCK_PRODUCTS['chocoramo-fresh'].name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <h3 className="font-bold text-gray-900">
+                        {MOCK_PRODUCTS['chocoramo-fresh'].name}
+                      </h3>
+                      <p className="text-sm text-gray-600 mt-1">
+                        {MOCK_PRODUCTS['chocoramo-fresh'].description}
+                      </p>
+                      <p className="font-bold text-orange-600 text-lg mt-2">
+                        ${MOCK_PRODUCTS['chocoramo-fresh'].price.toLocaleString()}
                       </p>
                     </div>
                   </div>
-                ))}
+                </div>
+              )}
             </TabsContent>
 
             <TabsContent value="combos" className="space-y-4 mt-6">

@@ -29,4 +29,11 @@ export const MOCK_PRODUCTS: Record<string, Product> = {
     description: 'Torta con cobertura de chocolate negro intenso',
     image: '/torta-chocolate-negro.jpeg',
   },
+  'chocoramo-fresh': {
+    id: 'chocoramo-fresh',
+    name: 'Chocoramo Fresh',
+    price: 3500,
+    description: 'Chocoramo recién horneado, crujiente y delicioso',
+    image: '/chocoramos.png',
+  },
 }
