@@ -94,7 +94,7 @@ export default function KitsPage() {
         </div>
       )}
 
-      <div className="bg-white rounded-lg p-6 space-y-4" style={{ borderWidth: '1px', borderColor: '#1F6FA8' }}>
+      <div className="rounded-lg p-6 space-y-4" style={{ borderWidth: '1px', borderColor: '#1F6FA8', backgroundColor: 'rgba(31, 111, 168, 0.1)' }}>
         <h2 className="font-bold text-ramo-grayDark flex items-center gap-2">
           <Package size={20} />
           Mis Pedidos Recientes
