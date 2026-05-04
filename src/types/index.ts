@@ -7,6 +7,7 @@ export interface User {
   phone?: string
   bakeryId?: string
   favorites?: string[]
+  favoriteProducts?: string[]
   loyaltySeals?: number
 }
 
