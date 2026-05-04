@@ -23,19 +23,7 @@ export default function SplashPage() {
   }, [user, router])
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-ramo-yellow/20 via-white to-ramo-cream relative overflow-hidden">
-      {/* Animated background shapes */}
-      <motion.div
-        className="absolute top-10 right-10 w-40 h-40 rounded-full bg-ramo-yellow/10 blur-3xl"
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 4, repeat: Infinity }}
-      />
-      <motion.div
-        className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-ramo-red/10 blur-3xl"
-        animate={{ y: [0, 20, 0] }}
-        transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
-      />
-
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden" style={{ backgroundColor: '#FF6D2D' }}>
       <motion.div
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -46,49 +34,59 @@ export default function SplashPage() {
         <motion.div
           className="mb-8 inline-block"
           animate={{ scale: [1, 1.05, 1] }}
-          transition={{ duration: 2.5, repeat: Infinity }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
           <Image
             src="/ramo-logo.png"
             alt="Ramo Vecino"
-            width={100}
-            height={100}
-            className="h-24 w-auto"
+            width={180}
+            height={180}
+            className="h-48 w-auto"
           />
         </motion.div>
 
         <motion.h1
-          className="text-5xl font-bold text-ramo-dark mb-3"
+          className="text-6xl font-bold text-white mb-3"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.2, ease: 'easeOut' }}
+          style={{
+            textShadow: `
+              -2px -2px 0 #1F6FA8,
+              2px -2px 0 #1F6FA8,
+              -2px 2px 0 #1F6FA8,
+              2px 2px 0 #1F6FA8,
+              -2px 0px 0 #1F6FA8,
+              2px 0px 0 #1F6FA8,
+              0px -2px 0 #1F6FA8,
+              0px 2px 0 #1F6FA8
+            `,
+          }}
         >
           Ramo Vecino
         </motion.h1>
 
-        <motion.p
-          className="text-ramo-gray text-lg font-medium"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          Pan fresco, en tu barrio
-        </motion.p>
-
-        {/* Loading dots */}
+        {/* Loading chocolates */}
         <motion.div
-          className="flex justify-center gap-2 mt-10"
+          className="flex justify-center gap-3 mt-12"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
+          transition={{ delay: 0.6, ease: 'easeOut' }}
         >
           {[0, 1, 2].map((i) => (
             <motion.div
               key={i}
-              className="w-2 h-2 rounded-full bg-ramo-yellow"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15 }}
-            />
+              className="text-4xl"
+              animate={{ y: [0, -15, 0], opacity: [1, 0.5, 1] }}
+              transition={{
+                duration: 0.8,
+                repeat: Infinity,
+                delay: i * 0.15,
+                ease: 'easeInOut'
+              }}
+            >
+              🍫
+            </motion.div>
           ))}
         </motion.div>
       </motion.div>
