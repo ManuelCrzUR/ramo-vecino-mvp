@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { useUser } from '@/lib/store'
 import { BottomNavCliente } from '@/components/shared/BottomNavCliente'
 
@@ -26,7 +27,14 @@ export default function ClienteLayout({
   return (
     <div className="min-h-screen bg-ramo-white pb-20">
       <div className="sticky top-0 z-50 bg-white border-b border-ramo-grayBorder h-16 flex items-center px-4">
-        <h1 className="text-xl font-bold text-ramo-blue">Ramo Vecino</h1>
+        <Image
+          src="/ramo-logo.png"
+          alt="Ramo Vecino"
+          width={120}
+          height={40}
+          priority
+          className="object-contain"
+        />
       </div>
       {children}
       <BottomNavCliente />
