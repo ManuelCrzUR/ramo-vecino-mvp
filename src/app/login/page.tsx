@@ -73,13 +73,15 @@ export default function LoginPage() {
 
         {/* Header */}
         <div className="text-center mb-10 space-y-3">
-          <Image
-            src="/ramo-logo.png"
-            alt="Ramo Vecino"
-            width={60}
-            height={60}
-            className="h-16 w-auto mx-auto"
-          />
+          <div className="flex justify-center mb-4">
+            <Image
+              src="/ramo-logo.png"
+              alt="Ramo Vecino"
+              width={80}
+              height={80}
+              className="h-24 w-auto"
+            />
+          </div>
           <h1 className="text-4xl font-bold text-white">Inicia sesión</h1>
           <p className="text-white/80">Accede a tu cuenta de Ramo Vecino</p>
         </div>
@@ -169,11 +171,19 @@ export default function LoginPage() {
           <Button
             type="submit"
             disabled={isLoading}
-            className={`w-full py-6 font-bold rounded-xl transition-all text-white ${
-              role === 'cliente'
-                ? 'bg-ramo-yellow hover:bg-yellow-500 text-ramo-dark'
-                : 'bg-ramo-red hover:bg-red-700'
-            }`}
+            className="w-full py-6 font-bold rounded-lg transition-all border-2 text-white"
+            style={{
+              backgroundColor: '#D10A0A',
+              borderColor: 'rgba(255, 255, 255, 0.3)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#b80808';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.6)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#D10A0A';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+            }}
           >
             {isLoading ? 'Entrando...' : 'Entrar'}
           </Button>
