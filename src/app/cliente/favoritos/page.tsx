@@ -97,7 +97,7 @@ export default function FavoritosPage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               {favProducts.map((product) => (
                 <div
                   key={product.id}
