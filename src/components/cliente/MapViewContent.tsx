@@ -168,17 +168,23 @@ export default function MapViewContent({
 
         {/* Tab when hidden */}
         {isHidden && (
-          <motion.button
-            onClick={() => setIsHidden(false)}
-            className="fixed left-0 right-0 rounded-t-3xl h-16 shadow-2xl border-t-4 z-40 bg-white"
+          <motion.div
+            className="fixed left-0 right-0 rounded-t-3xl h-16 shadow-2xl border-t-4 z-50 bg-white"
             style={{ borderTopColor: '#E30613', bottom: '80px' }}
             whileHover={{ y: -5 }}
+            onClick={() => {
+              setIsHidden(false)
+              setDragY(0)
+            }}
           >
-            <div className="h-full flex flex-col items-center justify-center">
-              <div className="w-10 h-1 rounded-full mb-2" style={{ backgroundColor: '#E30613' }} />
+            <div className="h-full flex flex-col items-center justify-center cursor-pointer">
+              <div
+                className="w-12 h-1.5 rounded-full mb-2 hover:opacity-80 transition-opacity"
+                style={{ backgroundColor: '#E30613' }}
+              />
               <p className="text-xs font-bold text-ramo-gray">Panaderías cercanas</p>
             </div>
-          </motion.button>
+          </motion.div>
         )}
 
         {/* Bottom Sheet with Drag */}
