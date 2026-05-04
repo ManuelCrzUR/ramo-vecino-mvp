@@ -16,7 +16,7 @@ export function BottomNavPanadero() {
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-ramo-grayBorder overflow-x-auto">
+    <nav className="fixed bottom-0 left-0 right-0 border-t" style={{ backgroundColor: '#E30613', borderColor: '#C20510' }}>
       <div className="flex justify-around items-center h-20 min-w-max">
         {tabs.map((tab) => {
           const isActive = pathname === tab.href || pathname.startsWith(tab.href + '/')
@@ -26,8 +26,8 @@ export function BottomNavPanadero() {
               href={tab.href}
               className={`flex flex-col items-center justify-center px-4 h-full gap-1 transition-colors whitespace-nowrap ${
                 isActive
-                  ? 'text-ramo-red'
-                  : 'text-ramo-grayDark hover:text-ramo-red'
+                  ? 'text-white'
+                  : 'text-white/60 hover:text-white'
               }`}
             >
               <tab.icon size={24} />

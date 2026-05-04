@@ -32,7 +32,7 @@ export default function PanaderoPage() {
   return (
     <div className="p-6 space-y-6 bg-white min-h-screen">
       {bakery && (
-        <div className="rounded-xl p-6 space-y-4 border-2" style={{ backgroundColor: 'rgba(227, 6, 19, 0.15)', borderColor: '#E30613' }}>
+        <div className="rounded-xl p-6 space-y-4 border-2 border-ramo-border" style={{ backgroundColor: 'rgba(227, 6, 19, 0.15)' }}>
           <h1 className="text-3xl font-bold text-ramo-dark">{bakery.name}</h1>
           <div className="space-y-2">
             <p className="text-sm text-ramo-gray">{bakery.address}</p>
@@ -116,11 +116,11 @@ export default function PanaderoPage() {
       )}
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="rounded-xl p-4 text-center border-2" style={{ backgroundColor: 'rgba(227, 6, 19, 0.15)', borderColor: '#E30613' }}>
+        <div className="rounded-xl p-4 text-center border-2 border-ramo-border" style={{ backgroundColor: 'rgba(227, 6, 19, 0.15)' }}>
           <p className="text-3xl font-bold text-ramo-dark">{bakery?.availableProducts.length}</p>
           <p className="text-sm text-ramo-gray mt-2">Productos</p>
         </div>
-        <div className="rounded-xl p-4 text-center border-2" style={{ backgroundColor: 'rgba(227, 6, 19, 0.15)', borderColor: '#E30613' }}>
+        <div className="rounded-xl p-4 text-center border-2 border-ramo-border" style={{ backgroundColor: 'rgba(227, 6, 19, 0.15)' }}>
           <p className="text-3xl font-bold text-ramo-dark">{bakery?.reviewsCount}</p>
           <p className="text-sm text-ramo-gray mt-2">Reseñas</p>
         </div>
