@@ -13,6 +13,9 @@ export const MOCK_BAKERIES: Record<string, Bakery> = {
     isCertified: true,
     availableProducts: ['chocoramo', 'arequipe', 'blanco'],
     isActive: true,
+    phone: '+57 1 2456789',
+    scheduleOpen: '06:00',
+    scheduleClose: '20:00',
   },
   'bakery-el-trigal': {
     id: 'bakery-el-trigal',
@@ -26,6 +29,9 @@ export const MOCK_BAKERIES: Record<string, Bakery> = {
     isCertified: true,
     availableProducts: ['chocoramo', 'blanco'],
     isActive: true,
+    phone: '+57 1 3456789',
+    scheduleOpen: '06:30',
+    scheduleClose: '21:00',
   },
   'bakery-don-pan': {
     id: 'bakery-don-pan',
@@ -38,6 +44,9 @@ export const MOCK_BAKERIES: Record<string, Bakery> = {
     isCertified: true,
     availableProducts: ['chocoramo', 'arequipe'],
     isActive: true,
+    phone: '+57 1 4456789',
+    scheduleOpen: '05:30',
+    scheduleClose: '19:30',
   },
   'bakery-pan-casero': {
     id: 'bakery-pan-casero',
@@ -50,6 +59,9 @@ export const MOCK_BAKERIES: Record<string, Bakery> = {
     isCertified: false,
     availableProducts: ['arequipe', 'blanco'],
     isActive: true,
+    phone: '+57 1 5456789',
+    scheduleOpen: '06:00',
+    scheduleClose: '20:30',
   },
   'bakery-tradicion': {
     id: 'bakery-tradicion',
@@ -62,6 +74,9 @@ export const MOCK_BAKERIES: Record<string, Bakery> = {
     isCertified: true,
     availableProducts: ['chocoramo', 'blanco'],
     isActive: true,
+    phone: '+57 1 6456789',
+    scheduleOpen: '06:30',
+    scheduleClose: '20:00',
   },
   'bakery-sabor-fresco': {
     id: 'bakery-sabor-fresco',
@@ -74,5 +89,8 @@ export const MOCK_BAKERIES: Record<string, Bakery> = {
     isCertified: true,
     availableProducts: ['chocoramo', 'arequipe', 'blanco'],
     isActive: true,
+    phone: '+57 1 7456789',
+    scheduleOpen: '06:00',
+    scheduleClose: '21:30',
   },
 }

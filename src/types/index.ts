@@ -23,6 +23,8 @@ export interface Bakery {
   availableProducts: string[]
   isActive: boolean
   phone?: string
+  scheduleOpen?: string
+  scheduleClose?: string
 }
 
 export interface BakeEvent {

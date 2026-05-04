@@ -51,14 +51,18 @@ export default function BakeryDetailPage({
 
         <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white p-6 pb-12 space-y-4">
           <h1 className="text-3xl font-bold">{bakery.name}</h1>
-          <div className="space-y-2 text-sm">
+          <div className="space-y-3 text-sm">
             <div className="flex items-center gap-2">
               <MapPin size={16} />
               <p>{bakery.address}</p>
             </div>
             <div className="flex items-center gap-2">
               <Phone size={16} />
-              <p>{bakery.phone || '+57 1 2345678'}</p>
+              <p>{bakery.phone}</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-semibold">⏰ Horario:</span>
+              <p>{bakery.scheduleOpen} - {bakery.scheduleClose}</p>
             </div>
           </div>
           <div className="flex items-center justify-between">
@@ -86,18 +90,24 @@ export default function BakeryDetailPage({
           </div>
 
           {minutesAgo !== null && minutesAgo < 30 && (
-            <div className="bg-ramo-alert/20 rounded-lg p-2 text-sm flex items-center gap-2">
+            <div className="bg-ramo-alert/20 rounded-lg p-3 text-sm flex items-center gap-2 border border-white/30">
               <Flame size={16} />
               Acaban de hornear hace {minutesAgo} minutos
+            </div>
+          )}
+          {minutesAgo === null && (
+            <div className="bg-white/10 rounded-lg p-3 text-sm border border-white/30">
+              Sin eventos de horneado recientes
             </div>
           )}
         </div>
 
         <div className="bg-white -mt-6 rounded-t-3xl px-6 py-6">
           <Tabs defaultValue="productos" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="productos">Productos</TabsTrigger>
               <TabsTrigger value="combos">Combos</TabsTrigger>
+              <TabsTrigger value="resenas">Reseñas</TabsTrigger>
             </TabsList>
 
             <TabsContent value="productos" className="space-y-4 mt-6">
@@ -105,16 +115,16 @@ export default function BakeryDetailPage({
                 Object.values(bakeryProducts).map((product) => (
                   <div
                     key={product.id}
-                    className="border border-gray-200 rounded-lg p-4 bg-gray-50 hover:bg-gray-100 transition-colors"
+                    className="border-2 border-blue-200 rounded-lg p-4 bg-blue-50 hover:bg-blue-100 transition-colors cursor-pointer active:scale-95"
                   >
                     <div className="flex justify-between items-start">
-                      <div>
+                      <div className="flex-1">
                         <h3 className="font-bold text-gray-900">{product.name}</h3>
                         <p className="text-sm text-gray-600 mt-1">
                           {product.description}
                         </p>
                       </div>
-                      <p className="font-bold text-blue-600 text-lg">
+                      <p className="font-bold text-blue-600 text-lg ml-4 whitespace-nowrap">
                         ${product.price.toLocaleString()}
                       </p>
                     </div>
@@ -126,24 +136,61 @@ export default function BakeryDetailPage({
               {bakeryComBos.map((combo) => (
                 <div
                   key={combo.id}
-                  className="border border-gray-200 rounded-lg p-4 bg-gray-50 hover:bg-gray-100 transition-colors"
+                  className="border-2 border-red-200 rounded-lg p-4 bg-red-50 hover:bg-red-100 transition-colors cursor-pointer active:scale-95"
                 >
                   <div className="flex justify-between items-start">
-                    <div>
+                    <div className="flex-1">
                       <h3 className="font-bold text-gray-900">{combo.name}</h3>
                       <p className="text-sm text-gray-600 mt-1">
                         {combo.description}
                       </p>
-                      <p className="text-xs text-gray-600 mt-2">
-                        {combo.products.length} productos
+                      <p className="text-xs text-gray-700 mt-2 font-semibold">
+                        📦 {combo.products.length} productos incluidos
                       </p>
                     </div>
-                    <p className="font-bold text-red-600 text-lg">
+                    <p className="font-bold text-red-600 text-lg ml-4 whitespace-nowrap">
                       ${combo.price.toLocaleString()}
                     </p>
                   </div>
                 </div>
               ))}
+            </TabsContent>
+
+            <TabsContent value="resenas" className="space-y-4 mt-6">
+              <div className="bg-blue-50 rounded-lg p-6 text-center border-2 border-blue-200">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <Star size={24} fill="#FFD700" className="text-yellow-400" />
+                  <span className="text-3xl font-bold text-gray-900">{bakery.rating}</span>
+                </div>
+                <p className="text-gray-600 font-semibold">{bakery.reviewsCount} reseñas</p>
+              </div>
+              <div className="space-y-3">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className="border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-10 h-10 rounded-full bg-blue-300 flex items-center justify-center text-white font-bold">
+                        {String.fromCharCode(65 + i)}
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-semibold text-gray-900">Cliente {i + 1}</p>
+                        <div className="flex items-center gap-1">
+                          {Array.from({ length: 5 }).map((_, j) => (
+                            <Star
+                              key={j}
+                              size={12}
+                              fill={j < (4 + i) % 5 ? '#FFD700' : '#E5E7EB'}
+                              className={j < (4 + i) % 5 ? 'text-yellow-400' : 'text-gray-300'}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                      Excelente panadería, productos frescos y de muy buena calidad. Recomendado.
+                    </p>
+                  </div>
+                ))}
+              </div>
             </TabsContent>
           </Tabs>
         </div>
