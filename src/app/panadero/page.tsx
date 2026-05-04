@@ -30,25 +30,25 @@ export default function PanaderoPage() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 bg-white min-h-screen">
       {bakery && (
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-xl p-6 space-y-4">
-          <h1 className="text-3xl font-bold">{bakery.name}</h1>
+        <div className="rounded-xl p-6 space-y-4 border-2" style={{ backgroundColor: 'rgba(227, 6, 19, 0.15)', borderColor: '#E30613' }}>
+          <h1 className="text-3xl font-bold text-ramo-dark">{bakery.name}</h1>
           <div className="space-y-2">
-            <p className="text-sm text-white/80">{bakery.address}</p>
-            <div className="flex items-center gap-1 text-sm">
-              <Star size={16} fill="white" />
+            <p className="text-sm text-ramo-gray">{bakery.address}</p>
+            <div className="flex items-center gap-1 text-sm text-ramo-dark">
+              <Star size={16} fill="currentColor" />
               {bakery.rating} ({bakery.reviewsCount} opiniones)
             </div>
             {bakery.isCertified && (
-              <div className="flex items-center gap-1 text-sm">
+              <div className="flex items-center gap-1 text-sm text-green-700">
                 <CheckCircle size={16} />
                 Certificada
               </div>
             )}
           </div>
           {minutesAgo !== null && (
-            <p className="text-sm bg-white/20 rounded px-3 py-1 inline-block">
+            <p className="text-sm rounded px-3 py-1 inline-block text-ramo-dark" style={{ backgroundColor: 'rgba(227, 6, 19, 0.1)' }}>
               Última hornada: hace {minutesAgo} minutos
             </p>
           )}
@@ -60,7 +60,16 @@ export default function PanaderoPage() {
           onClick={() => setIsOpen(true)}
           animate={{ scale: [1, 1.05, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="w-full bg-white/20 hover:bg-white/30 border-2 border-white/40 text-white font-bold py-6 rounded-lg flex items-center justify-center gap-2 text-lg transition-all"
+          className="w-full text-white font-bold py-6 rounded-lg flex items-center justify-center gap-2 text-lg transition-all border-2"
+          style={{ backgroundColor: '#FF6D2D', borderColor: '#FF6D2D' }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = '#E55A1A'
+            e.currentTarget.style.borderColor = '#E55A1A'
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = '#FF6D2D'
+            e.currentTarget.style.borderColor = '#FF6D2D'
+          }}
         >
           <Flame size={28} />
           Acabo de Hornear
@@ -107,13 +116,13 @@ export default function PanaderoPage() {
       )}
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 text-center">
-          <p className="text-3xl font-bold text-white">{bakery?.availableProducts.length}</p>
-          <p className="text-sm text-white/70 mt-2">Productos</p>
+        <div className="rounded-xl p-4 text-center border-2" style={{ backgroundColor: 'rgba(227, 6, 19, 0.15)', borderColor: '#E30613' }}>
+          <p className="text-3xl font-bold text-ramo-dark">{bakery?.availableProducts.length}</p>
+          <p className="text-sm text-ramo-gray mt-2">Productos</p>
         </div>
-        <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 text-center">
-          <p className="text-3xl font-bold text-white">{bakery?.reviewsCount}</p>
-          <p className="text-sm text-white/70 mt-2">Reseñas</p>
+        <div className="rounded-xl p-4 text-center border-2" style={{ backgroundColor: 'rgba(227, 6, 19, 0.15)', borderColor: '#E30613' }}>
+          <p className="text-3xl font-bold text-ramo-dark">{bakery?.reviewsCount}</p>
+          <p className="text-sm text-ramo-gray mt-2">Reseñas</p>
         </div>
       </div>
     </div>
