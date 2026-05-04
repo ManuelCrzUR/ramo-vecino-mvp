@@ -33,7 +33,8 @@ export default function MapViewContent({
   const mapRef = useRef<L.Map | null>(null)
   const markersRef = useRef<L.Marker[]>([])
   const [selectedBakery, setSelectedBakery] = useState<Bakery | null>(null)
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [dragY, setDragY] = useState(0)
+  const [isHidden, setIsHidden] = useState(false)
   const { coords, loading } = useGeolocation()
 
   useEffect(() => {
@@ -165,40 +166,36 @@ export default function MapViewContent({
       <div className="fixed inset-0 top-16 w-full bg-ramo-cream flex flex-col">
         <div id="map" className="w-full flex-1 rounded-none" />
 
-        {/* Bottom Sheet with Collapse */}
+        {/* Bottom Sheet with Drag */}
         <AnimatePresence>
-          <motion.div
-            initial={{ y: 300, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 300, opacity: 0 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className={`absolute bottom-0 left-0 right-0 rounded-t-3xl overflow-hidden shadow-2xl border-t-4 z-40 bg-white transition-all duration-300 ${
-              isExpanded ? 'max-h-96' : 'max-h-20'
-            }`}
-            style={{ borderTopColor: '#E30613' }}
-          >
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="w-full bg-white border-b-2 rounded-t-3xl p-4 hover:bg-gray-50 transition-colors"
-              style={{ borderBottomColor: isExpanded ? '#E30613' : 'transparent' }}
+          {!isHidden && (
+            <motion.div
+              drag="y"
+              dragElastic={0.2}
+              dragConstraints={{ top: 0 }}
+              onDrag={(event, info) => {
+                setDragY(info.offset.y)
+              }}
+              onDragEnd={(event, info) => {
+                if (info.offset.y > 100 || info.velocity.y > 300) {
+                  setIsHidden(true)
+                } else {
+                  setDragY(0)
+                }
+              }}
+              initial={{ y: 300, opacity: 0 }}
+              animate={{ y: dragY, opacity: 1 }}
+              exit={{ y: 300, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="absolute bottom-0 left-0 right-0 rounded-t-3xl max-h-96 overflow-hidden shadow-2xl border-t-4 z-40 bg-white cursor-grab active:cursor-grabbing"
+              style={{ borderTopColor: '#E30613' }}
             >
-              <div className="w-10 h-1 rounded-full mx-auto mb-3" style={{ backgroundColor: '#E30613' }} />
-              <div className="flex justify-between items-center">
-                <div className="text-left">
-                  <h2 className="font-bold text-lg text-ramo-dark">Panaderías cercanas</h2>
-                  <p className="text-sm text-ramo-gray">{baketeriesSorted.length} panaderías</p>
-                </div>
-                <motion.div
-                  animate={{ rotate: isExpanded ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex items-center justify-center"
-                >
-                  <ChevronDown size={24} className="text-ramo-dark" strokeWidth={3} />
-                </motion.div>
+              <div className="bg-white border-b border-gray-200 rounded-t-3xl p-4 touch-none">
+                <div className="w-10 h-1 rounded-full mx-auto mb-3" style={{ backgroundColor: '#E30613' }} />
+                <h2 className="font-bold text-lg text-ramo-dark">Panaderías cercanas</h2>
+                <p className="text-sm text-ramo-gray mt-1">{baketeriesSorted.length} panaderías</p>
               </div>
-            </button>
 
-            {isExpanded && (
               <div className="overflow-y-auto max-h-80 p-4 space-y-2 pb-6 bg-white">
               {baketeriesSorted.map((bakery, idx) => {
                 const recentEvent = events.find((e) => e.bakeryId === bakery.id)
@@ -244,8 +241,8 @@ export default function MapViewContent({
                 )
               })}
               </div>
-            )}
-          </motion.div>
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
     </>
