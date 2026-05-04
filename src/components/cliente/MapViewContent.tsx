@@ -171,16 +171,16 @@ export default function MapViewContent({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 300, opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="absolute bottom-0 left-0 right-0 rounded-t-3xl max-h-96 overflow-hidden shadow-2xl border-t-4 z-40"
-            style={{ borderTopColor: '#FFD700' }}
+            className="absolute bottom-0 left-0 right-0 rounded-t-3xl max-h-96 overflow-hidden shadow-2xl border-t-4 z-40 bg-white"
+            style={{ borderTopColor: '#E30613' }}
           >
-            <div className="bg-white border-b-2 border-ramo-yellow/20 rounded-t-3xl p-4">
-              <div className="w-10 h-1 bg-ramo-gray/20 rounded-full mx-auto mb-3" />
+            <div className="bg-white border-b-2 rounded-t-3xl p-4" style={{ borderBottomColor: '#E30613' }}>
+              <div className="w-10 h-1 rounded-full mx-auto mb-3" style={{ backgroundColor: '#E30613' }} />
               <h2 className="font-bold text-lg text-ramo-dark">Panaderías cercanas</h2>
               <p className="text-sm text-ramo-gray mt-1">{baketeriesSorted.length} panaderías</p>
             </div>
 
-            <div className="overflow-y-auto max-h-80 p-4 space-y-2 pb-6">
+            <div className="overflow-y-auto max-h-80 p-4 space-y-2 pb-6 bg-white">
               {baketeriesSorted.map((bakery, idx) => {
                 const recentEvent = events.find((e) => e.bakeryId === bakery.id)
                 const minutesAgo = recentEvent
