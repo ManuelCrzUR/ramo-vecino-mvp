@@ -70,12 +70,12 @@ export default function BakeryDetailPage({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Badge variant="secondary" className="bg-white/20 flex items-center gap-1">
-                <Star size={14} fill="white" />
+                <Star size={14} fill="#1F6FA8" style={{ color: '#1F6FA8' }} />
                 {bakery.rating} ({bakery.reviewsCount})
               </Badge>
               {bakery.isCertified && (
-                <Badge variant="secondary" className="bg-ramo-success flex items-center gap-1">
-                  <CheckCircle size={14} />
+                <Badge variant="secondary" className="flex items-center gap-1" style={{ backgroundColor: '#E8F7FC', color: '#8ECFE8' }}>
+                  <CheckCircle size={14} style={{ color: '#8ECFE8' }} />
                   Certificada
                 </Badge>
               )}

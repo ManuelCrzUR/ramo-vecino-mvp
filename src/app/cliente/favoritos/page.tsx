@@ -72,11 +72,11 @@ export default function FavoritosPage() {
                     <h3 className="font-bold text-ramo-dark">{bakery.name}</h3>
                     <p className="text-xs text-ramo-gray mt-1">{bakery.address}</p>
                     {bakery.isCertified && (
-                      <p className="text-xs text-green-600 font-bold mt-1">✓ Certificada</p>
+                      <p className="text-xs font-bold mt-1" style={{ color: '#8ECFE8' }}>✓ Certificada</p>
                     )}
                   </div>
-                  <div className="flex items-center gap-1 font-bold text-orange-500 text-sm flex-shrink-0">
-                    <Star size={16} fill="currentColor" />
+                  <div className="flex items-center gap-1 font-bold text-sm flex-shrink-0" style={{ color: '#1F6FA8' }}>
+                    <Star size={16} fill="#1F6FA8" />
                     {bakery.rating}
                   </div>
                 </div>

@@ -37,11 +37,11 @@ export default function PanaderoPage() {
           <div className="space-y-2">
             <p className="text-sm text-ramo-gray">{bakery.address}</p>
             <div className="flex items-center gap-1 text-sm text-ramo-dark">
-              <Star size={16} fill="currentColor" />
+              <Star size={16} fill="#1F6FA8" style={{ color: '#1F6FA8' }} />
               {bakery.rating} ({bakery.reviewsCount} opiniones)
             </div>
             {bakery.isCertified && (
-              <div className="flex items-center gap-1 text-sm text-green-700">
+              <div className="flex items-center gap-1 text-sm" style={{ color: '#8ECFE8' }}>
                 <CheckCircle size={16} />
                 Certificada
               </div>
