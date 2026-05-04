@@ -1,22 +1,32 @@
 import { Product } from '@/types'
 
 export const MOCK_PRODUCTS: Record<string, Product> = {
-  chocoramo: {
-    id: 'chocoramo',
-    name: 'Chocoramo',
-    price: 2500,
-    description: 'Pastel de chocolate relleno de arequipe y nueces',
+  'torta-mixta': {
+    id: 'torta-mixta',
+    name: 'Torta Mixta',
+    price: 15000,
+    description: 'Torta esponjosa con frutas y crema',
+    image: '🎂',
   },
-  arequipe: {
-    id: 'arequipe',
-    name: 'Pan de Arequipe',
-    price: 2800,
-    description: 'Pan dulce con relleno generoso de arequipe',
+  'torta-arequipe': {
+    id: 'torta-arequipe',
+    name: 'Torta Arequipeños',
+    price: 16000,
+    description: 'Deliciosa torta con relleno de arequipe y nueces',
+    image: '🎂',
   },
-  blanco: {
-    id: 'blanco',
-    name: 'Pan Blanco',
-    price: 2700,
-    description: 'Pan clásico fresco horneado diariamente',
+  'torta-chocolate-blanco': {
+    id: 'torta-chocolate-blanco',
+    name: 'Torta Cubierta Chocolate Blanco',
+    price: 17500,
+    description: 'Torta con cobertura de chocolate blanco premium',
+    image: '🎂',
+  },
+  'torta-chocolate-negro': {
+    id: 'torta-chocolate-negro',
+    name: 'Torta Cubierta Chocolate Negro',
+    price: 17500,
+    description: 'Torta con cobertura de chocolate negro intenso',
+    image: '🎂',
   },
 }

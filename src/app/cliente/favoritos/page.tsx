@@ -15,7 +15,12 @@ export default function FavoritosPage() {
     .map((id) => MOCK_BAKERIES[id])
     .filter(Boolean)
 
-  const favoriteProducts = user?.favoriteProducts || ['chocoramo', 'arequipe']
+  const favoriteProducts = user?.favoriteProducts || [
+    'torta-mixta',
+    'torta-arequipe',
+    'torta-chocolate-blanco',
+    'torta-chocolate-negro',
+  ]
   const favProducts = favoriteProducts
     .map((id) => MOCK_PRODUCTS[id])
     .filter(Boolean)
@@ -87,7 +92,7 @@ export default function FavoritosPage() {
 
       {/* Productos Tab */}
       {activeTab === 'products' && (
-        <div className="space-y-3">
+        <div>
           {favProducts.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-ramo-gray">No tienes productos favoritos aún</p>
@@ -96,25 +101,35 @@ export default function FavoritosPage() {
               </p>
             </div>
           ) : (
-            favProducts.map((product) => (
-              <div
-                key={product.id}
-                className="rounded-xl p-4 border-2 border-ramo-border hover:shadow-lg transition-all"
-                style={{ backgroundColor: 'rgba(123, 195, 237, 0.15)' }}
-              >
-                <div className="flex justify-between items-start gap-3">
-                  <div className="flex-1">
-                    <h3 className="font-bold text-ramo-dark">{product.name}</h3>
-                    <p className="text-xs text-ramo-gray mt-1">{product.description}</p>
+            <div className="grid grid-cols-3 gap-4">
+              {favProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="rounded-xl overflow-hidden border-2 border-ramo-border hover:shadow-lg transition-all flex flex-col"
+                  style={{ backgroundColor: 'rgba(123, 195, 237, 0.15)' }}
+                >
+                  {/* Image Container */}
+                  <div className="w-full aspect-square bg-gradient-to-br from-blue-300 to-blue-400 flex items-center justify-center text-5xl">
+                    {product.image || '🎂'}
                   </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
-                    <p className="font-bold text-blue-600 text-sm">
+
+                  {/* Content Container */}
+                  <div className="p-3 flex flex-col justify-between flex-1">
+                    <div>
+                      <h3 className="font-bold text-ramo-dark text-sm line-clamp-2">
+                        {product.name}
+                      </h3>
+                      <p className="text-xs text-ramo-gray mt-1 line-clamp-2">
+                        {product.description}
+                      </p>
+                    </div>
+                    <p className="font-bold text-blue-600 text-sm mt-2">
                       ${product.price.toLocaleString()}
                     </p>
                   </div>
                 </div>
-              </div>
-            ))
+              ))}
+            </div>
           )}
         </div>
       )}
