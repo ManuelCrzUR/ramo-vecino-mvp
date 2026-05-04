@@ -61,14 +61,14 @@ export default function PanaderoPage() {
           animate={{ scale: [1, 1.05, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
           className="w-full text-white font-bold py-6 rounded-lg flex items-center justify-center gap-2 text-lg transition-all border-2"
-          style={{ backgroundColor: '#E74C57', borderColor: '#E74C57' }}
+          style={{ backgroundColor: '#FF6D2D', borderColor: '#FF6D2D' }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#D63846'
-            e.currentTarget.style.borderColor = '#D63846'
+            e.currentTarget.style.backgroundColor = '#E55A1A'
+            e.currentTarget.style.borderColor = '#E55A1A'
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = '#E74C57'
-            e.currentTarget.style.borderColor = '#E74C57'
+            e.currentTarget.style.backgroundColor = '#FF6D2D'
+            e.currentTarget.style.borderColor = '#FF6D2D'
           }}
         >
           <Flame size={28} />
@@ -116,8 +116,8 @@ export default function PanaderoPage() {
       )}
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="rounded-xl p-4 text-center border-2" style={{ backgroundColor: '#FFFFFF', borderColor: '#1F6FA8' }}>
-          <p className="text-3xl font-bold" style={{ color: '#1F6FA8' }}>{bakery?.availableProducts.length}</p>
+        <div className="rounded-xl p-4 text-center border-2" style={{ backgroundColor: '#FFFFFF', borderColor: '#E74C57' }}>
+          <p className="text-3xl font-bold" style={{ color: '#E74C57' }}>{bakery?.availableProducts.length}</p>
           <p className="text-sm text-ramo-gray mt-2">Productos</p>
         </div>
         <div className="rounded-xl p-4 text-center border-2 border-gray-300" style={{ backgroundColor: '#FFFFFF' }}>
