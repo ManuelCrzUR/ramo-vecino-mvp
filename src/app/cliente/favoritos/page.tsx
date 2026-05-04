@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { MOCK_BAKERIES, MOCK_PRODUCTS } from '@/lib/mockData'
 import { useUser } from '@/lib/store'
 import Link from 'next/link'
@@ -101,7 +102,7 @@ export default function FavoritosPage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-4 gap-4">
               {favProducts.map((product) => (
                 <div
                   key={product.id}
@@ -109,8 +110,20 @@ export default function FavoritosPage() {
                   style={{ backgroundColor: 'rgba(123, 195, 237, 0.15)' }}
                 >
                   {/* Image Container */}
-                  <div className="w-full aspect-square bg-gradient-to-br from-blue-300 to-blue-400 flex items-center justify-center text-5xl">
-                    {product.image || '🎂'}
+                  <div className="w-full aspect-square bg-gray-200 relative overflow-hidden">
+                    {product.image ? (
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-300 to-blue-400 text-4xl">
+                        🎂
+                      </div>
+                    )}
                   </div>
 
                   {/* Content Container */}
