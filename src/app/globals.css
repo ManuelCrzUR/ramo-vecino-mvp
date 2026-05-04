@@ -123,8 +123,14 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-poppins), sans-serif;
   }
   html {
+    font-family: var(--font-poppins), sans-serif;
     @apply font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-poppins), sans-serif;
+    @apply font-bold;
   }
 }

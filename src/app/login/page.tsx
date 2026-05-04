@@ -55,9 +55,9 @@ export default function LoginPage() {
   const roleTextColor = role === 'cliente' ? 'ramo-dark' : 'white'
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-ramo-cream via-white to-ramo-cream p-6 flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-amber-100 via-orange-50 to-red-50 p-6 flex flex-col items-center justify-center">
       <motion.div
-        className="w-full max-w-md"
+        className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}

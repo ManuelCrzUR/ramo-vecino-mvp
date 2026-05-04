@@ -39,7 +39,7 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-ramo-cream via-white to-ramo-cream p-6 flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-white to-ramo-cream p-6 flex flex-col items-center justify-center">
       <motion.div
         className="w-full max-w-md space-y-10"
         variants={containerVariants}
