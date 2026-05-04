@@ -122,7 +122,7 @@ export default function BakeryDetailPage({
                 const fullTorta = MOCK_PRODUCTS[ids.full]
                 const portionTorta = MOCK_PRODUCTS[ids.portion]
                 return (
-                  <div key={ids.full} className="space-y-2">
+                  <div key={ids.full} className="space-y-3">
                     {fullTorta && (
                       <div className="border-2 border-blue-200 rounded-lg p-4 bg-blue-50 hover:bg-blue-100 transition-colors cursor-pointer active:scale-95">
                         <div className="flex gap-4">
@@ -149,10 +149,10 @@ export default function BakeryDetailPage({
                       </div>
                     )}
                     {portionTorta && (
-                      <div className="border-2 border-cyan-200 rounded-lg p-4 bg-cyan-50 hover:bg-cyan-100 transition-colors cursor-pointer active:scale-95 ml-4">
+                      <div className="border-2 border-blue-200 rounded-lg p-4 bg-blue-50 hover:bg-blue-100 transition-colors cursor-pointer active:scale-95">
                         <div className="flex gap-4">
                           {portionTorta.image && (
-                            <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200 relative">
+                            <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200 relative">
                               <Image
                                 src={portionTorta.image}
                                 alt={portionTorta.name}
@@ -162,11 +162,11 @@ export default function BakeryDetailPage({
                             </div>
                           )}
                           <div className="flex-1">
-                            <h4 className="font-bold text-gray-900 text-sm">{portionTorta.name}</h4>
-                            <p className="text-xs text-gray-600 mt-1">
+                            <h4 className="font-bold text-gray-900">{portionTorta.name}</h4>
+                            <p className="text-sm text-gray-600 mt-1">
                               {portionTorta.description}
                             </p>
-                            <p className="font-bold text-cyan-600 text-base mt-2">
+                            <p className="font-bold text-blue-600 text-lg mt-2">
                               ${portionTorta.price.toLocaleString()}
                             </p>
                           </div>
