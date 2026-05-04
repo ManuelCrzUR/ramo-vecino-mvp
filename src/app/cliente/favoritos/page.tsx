@@ -16,12 +16,7 @@ export default function FavoritosPage() {
     .map((id) => MOCK_BAKERIES[id])
     .filter(Boolean)
 
-  const favoriteProducts = user?.favoriteProducts || [
-    'torta-mixta',
-    'torta-arequipe',
-    'torta-chocolate-blanco',
-    'torta-chocolate-negro',
-  ]
+  const favoriteProducts = user?.favoriteProducts || ['bites-ramo-6']
   const favProducts = favoriteProducts
     .map((id) => MOCK_PRODUCTS[id])
     .filter(Boolean)
