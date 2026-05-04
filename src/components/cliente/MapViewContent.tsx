@@ -168,6 +168,36 @@ export default function MapViewContent({
 
         {/* Bottom Sheet with Drag */}
         <AnimatePresence>
+          {isHidden && (
+            <motion.div
+              drag="y"
+              dragElastic={0.2}
+              dragConstraints={{ bottom: 0, top: -300 }}
+              onDrag={(event, info) => {
+                setDragY(info.offset.y)
+              }}
+              onDragEnd={(event, info) => {
+                if (info.offset.y < -50 || info.velocity.y < -300) {
+                  setIsHidden(false)
+                  setDragY(0)
+                } else {
+                  setDragY(0)
+                }
+              }}
+              initial={{ y: 300 }}
+              animate={{ y: dragY }}
+              exit={{ y: 300 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="absolute bottom-0 left-0 right-0 rounded-t-3xl h-16 shadow-2xl border-t-4 z-40 bg-white cursor-grab active:cursor-grabbing"
+              style={{ borderTopColor: '#E30613' }}
+            >
+              <div className="h-full flex flex-col items-center justify-center">
+                <div className="w-10 h-1 rounded-full mb-2" style={{ backgroundColor: '#E30613' }} />
+                <p className="text-xs font-bold text-ramo-gray">Panaderías cercanas</p>
+              </div>
+            </motion.div>
+          )}
+
           {!isHidden && (
             <motion.div
               drag="y"
