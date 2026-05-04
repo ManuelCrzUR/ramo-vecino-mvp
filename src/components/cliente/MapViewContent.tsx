@@ -171,8 +171,8 @@ export default function MapViewContent({
           {isHidden && (
             <motion.div
               drag="y"
-              dragElastic={0.2}
-              dragConstraints={{ bottom: 0, top: -300 }}
+              dragElastic={0.15}
+              dragConstraints={{ bottom: 120, top: -450 }}
               onDrag={(event, info) => {
                 setDragY(info.offset.y)
               }}
@@ -184,11 +184,11 @@ export default function MapViewContent({
                   setDragY(0)
                 }
               }}
-              initial={{ y: 300 }}
+              initial={{ y: 200 }}
               animate={{ y: dragY }}
-              exit={{ y: 300 }}
+              exit={{ y: 200 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="absolute left-0 right-0 rounded-t-3xl h-16 shadow-2xl border-t-4 z-40 bg-white cursor-grab active:cursor-grabbing"
+              className="fixed left-0 right-0 rounded-t-3xl h-16 shadow-2xl border-t-4 z-40 bg-white cursor-grab active:cursor-grabbing"
               style={{ borderTopColor: '#E30613', bottom: '80px' }}
             >
               <div className="h-full flex flex-col items-center justify-center">
