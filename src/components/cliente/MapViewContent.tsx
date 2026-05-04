@@ -19,9 +19,9 @@ const customIcon = new L.Icon({
 })
 
 const userIcon = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNDIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI4IiBmaWxsPSIjRkZENzAwIiBzdHJva2U9IiMzRDFGMEYiIHN0cm9rZS13aWR0aD0iMiIvPjwvc3ZnPg==',
-  iconSize: [24, 24],
-  iconAnchor: [12, 12],
+  iconUrl: '/chocoramos.png',
+  iconSize: [40, 40],
+  iconAnchor: [20, 20],
 })
 
 export default function MapViewContent({
