@@ -15,7 +15,7 @@ export function BottomNavCliente() {
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-ramo-grayBorder">
+    <nav className="fixed bottom-0 left-0 right-0 bg-white/10 backdrop-blur-md border-t border-white/20" style={{ backgroundColor: '#7BC3ED' }}>
       <div className="flex justify-around items-center h-20">
         {tabs.map((tab) => {
           const isActive = pathname === tab.href
@@ -25,8 +25,8 @@ export function BottomNavCliente() {
               href={tab.href}
               className={`flex flex-col items-center justify-center w-full h-full gap-1 transition-colors ${
                 isActive
-                  ? 'text-ramo-blue'
-                  : 'text-ramo-grayDark hover:text-ramo-blue'
+                  ? 'text-white'
+                  : 'text-white/60 hover:text-white'
               }`}
             >
               <tab.icon size={24} />

@@ -134,7 +134,7 @@ export default function MapViewContent({
         }
         .ramo-tooltip .leaflet-tooltip {
           background: white !important;
-          border: 2px solid #FFD700 !important;
+          border: 2px solid #7BC3ED !important;
           border-radius: 8px !important;
           color: #1a1a1a !important;
           box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
@@ -142,7 +142,7 @@ export default function MapViewContent({
           font-weight: 600 !important;
         }
         .ramo-tooltip .leaflet-tooltip-bottom::before {
-          border-bottom-color: #FFD700 !important;
+          border-bottom-color: #7BC3ED !important;
         }
         .ramo-popup .leaflet-popup-content-wrapper {
           border-radius: 8px !important;
@@ -171,12 +171,13 @@ export default function MapViewContent({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 300, opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl max-h-96 overflow-y-auto shadow-2xl border-t-4 border-ramo-yellow"
+            className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl max-h-96 overflow-y-auto shadow-2xl border-t-4 z-40"
+            style={{ borderTopColor: '#7BC3ED' }}
           >
-            <div className="p-6 sticky top-0 bg-white border-b-2 border-ramo-yellow/20 rounded-t-3xl">
-              <div className="w-10 h-1 bg-ramo-gray/20 rounded-full mx-auto mb-4" />
-              <h2 className="font-bold text-lg text-ramo-dark">Panaderías cercanas</h2>
-              <p className="text-sm text-ramo-gray mt-1">{baketeriesSorted.length} panaderías</p>
+            <div className="p-6 sticky top-0 bg-white border-b-2 rounded-t-3xl z-50" style={{ borderBottomColor: '#7BC3ED' }}>
+              <div className="w-10 h-1 rounded-full mx-auto mb-4" style={{ backgroundColor: '#7BC3ED' }} />
+              <h2 className="font-bold text-lg text-gray-900">Panaderías cercanas</h2>
+              <p className="text-sm text-gray-600 mt-1">{baketeriesSorted.length} panaderías</p>
             </div>
 
             <div className="p-4 space-y-2 pb-6">
@@ -195,23 +196,27 @@ export default function MapViewContent({
                   >
                     <Link
                       href={`/cliente/panaderia/${bakery.id}`}
-                      className="block p-4 rounded-xl bg-gradient-to-r from-ramo-cream to-white border-2 border-ramo-border hover:border-ramo-yellow transition-all duration-300 hover:shadow-lg active:scale-95"
+                      className="block p-4 rounded-xl border-2 transition-all duration-300 hover:shadow-lg active:scale-95"
+                      style={{
+                        backgroundColor: '#E8F4FC',
+                        borderColor: '#7BC3ED',
+                      }}
                     >
                       <div className="flex justify-between items-start gap-3">
                         <div className="flex-1">
-                          <h3 className="font-bold text-ramo-dark text-sm">{bakery.name}</h3>
-                          <p className="text-xs text-ramo-gray mt-1">{bakery.address}</p>
+                          <h3 className="font-bold text-gray-900 text-sm">{bakery.name}</h3>
+                          <p className="text-xs text-gray-600 mt-1">{bakery.address}</p>
                           {bakery.isCertified && (
-                            <p className="text-xs text-ramo-yellow font-bold mt-1">✔ Certificada</p>
+                            <p className="text-xs font-bold mt-1" style={{ color: '#7BC3ED' }}>✔ Certificada</p>
                           )}
                         </div>
                         <div className="text-right flex flex-col items-end gap-1">
-                          <div className="flex items-center gap-1 text-sm font-bold text-ramo-yellow">
+                          <div className="flex items-center gap-1 text-sm font-bold" style={{ color: '#FF6D2D' }}>
                             <Star size={16} fill="currentColor" />
                             {bakery.rating}
                           </div>
                           {minutesAgo !== null && minutesAgo < 30 && (
-                            <div className="flex items-center gap-1 text-xs text-ramo-red font-bold animate-pulse">
+                            <div className="flex items-center gap-1 text-xs font-bold animate-pulse" style={{ color: '#FF6D2D' }}>
                               <Flame size={14} fill="currentColor" />
                               Hace {minutesAgo}m
                             </div>
