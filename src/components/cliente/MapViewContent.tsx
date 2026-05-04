@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MOCK_BAKERIES, MOCK_BAKE_EVENTS } from '@/lib/mockData'
@@ -8,7 +9,7 @@ import { useGeolocation } from '@/hooks/useGeolocation'
 import { Bakery } from '@/types'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Star, Flame, ChevronDown } from 'lucide-react'
+import { Star, Flame, ChevronDown, CheckCircle2 } from 'lucide-react'
 
 const customIcon = new L.Icon({
   iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA0OCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjQgMEMxMS4zIDAgMSAxMC4zIDEgMjNjMCAxNSAyMyA0MSAyMyA0MXMyMyAtMjYgMjMgLTQxQzQ3IDEwLjMgMzYuNyAwIDI0IDBaIiBmaWxsPSIjRTMwNjEzIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48Y2lyY2xlIGN4PSIyNCIgY3k9IjIzIiByPSI3IiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg==',
@@ -30,6 +31,7 @@ export default function MapViewContent({
   bakeries: Bakery[]
   events: any[]
 }) {
+  const router = useRouter()
   const mapRef = useRef<L.Map | null>(null)
   const markersRef = useRef<L.Marker[]>([])
   const [selectedBakery, setSelectedBakery] = useState<Bakery | null>(null)
@@ -89,8 +91,11 @@ export default function MapViewContent({
               <span style="font-size: 12px; color: #6B7280;">Reseñas:</span>
               <span style="font-weight: bold; color: #1a1a1a;">${bakery.reviewsCount}</span>
             </div>
-            ${bakery.isCertified ? '<div style="padding: 6px 10px; background: #10B981; color: white; border-radius: 4px; font-size: 11px; text-align: center; font-weight: bold;">✓ Certificada</div>' : ''}
-            ${isRecent ? '<div style="margin-top: 8px; padding: 6px 10px; background: #FEE2E2; color: #E30613; border-radius: 4px; font-size: 11px; text-align: center; font-weight: bold;">🔥 Recién horneado</div>' : ''}
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              ${bakery.isCertified ? '<div style="flex: 1; padding: 8px 10px; background: #10B981; color: white; border-radius: 4px; font-size: 11px; text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 4px;">✓ Certificada</div>' : ''}
+              ${isRecent ? '<div style="flex: 1; padding: 8px 10px; background: #FEE2E2; color: #E30613; border-radius: 4px; font-size: 11px; text-align: center; font-weight: bold;">🔥 Reciente</div>' : ''}
+            </div>
+            <button id="btn-${bakery.id}" style="width: 100%; padding: 10px; background: #0099FF; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 12px; cursor: pointer; transition: background 0.2s;">Ver detalles</button>
           </div>
         </div>
       `
@@ -103,6 +108,21 @@ export default function MapViewContent({
           offset: [0, 0]
         })
         .addTo(mapRef.current!)
+
+      marker.on('popupopen', () => {
+        const btn = document.getElementById(`btn-${bakery.id}`)
+        if (btn) {
+          btn.addEventListener('click', () => {
+            router.push(`/cliente/panaderia/${bakery.id}`)
+          })
+          btn.addEventListener('mouseover', () => {
+            btn.style.background = '#0077CC'
+          })
+          btn.addEventListener('mouseout', () => {
+            btn.style.background = '#0099FF'
+          })
+        }
+      })
 
       marker.on('click', () => setSelectedBakery(bakery))
       markersRef.current.push(marker)
