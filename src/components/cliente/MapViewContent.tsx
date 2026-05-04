@@ -11,10 +11,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Star, Flame, ChevronDown } from 'lucide-react'
 
 const customIcon = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyNCIgY3k9IjI0IiByPSIyMCIgZmlsbD0iI0UzMDYxMyIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIzIi8+PC9zdmc+',
-  iconSize: [48, 48],
-  iconAnchor: [24, 24],
-  popupAnchor: [0, -24],
+  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA0OCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjQgMEMxMS4zIDAgMSAxMC4zIDEgMjNjMCAxNSAyMyA0MSAyMyA0MXMyMyAtMjYgMjMgLTQxQzQ3IDEwLjMgMzYuNyAwIDI0IDBaIiBmaWxsPSIjRTMwNjEzIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48Y2lyY2xlIGN4PSIyNCIgY3k9IjIzIiByPSI3IiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg==',
+  iconSize: [48, 64],
+  iconAnchor: [24, 64],
+  popupAnchor: [0, -64],
 })
 
 const userIcon = new L.Icon({
