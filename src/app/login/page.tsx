@@ -40,15 +40,29 @@ export default function LoginPage() {
   }
 
   const handleDemoLogin = (demoRole: 'cliente' | 'panadero') => {
-    if (demoRole === 'cliente') {
-      setEmail('cliente@demo.com')
-      setPassword('demo123')
-      setRole('cliente')
-    } else {
-      setEmail('panadero@demo.com')
-      setPassword('demo123')
-      setRole('panadero')
-    }
+    setError('')
+    setIsLoading(true)
+
+    setTimeout(() => {
+      let demoEmail = ''
+      if (demoRole === 'cliente') {
+        demoEmail = 'cliente@demo.com'
+      } else {
+        demoEmail = 'panadero@demo.com'
+      }
+
+      const user = Object.values(MOCK_USERS).find(
+        (u) => u.email === demoEmail && u.password === 'demo123' && u.role === demoRole
+      )
+
+      if (user) {
+        setUser(user)
+        router.push(`/${demoRole}`)
+      } else {
+        setError('Error al acceder a la cuenta demo')
+        setIsLoading(false)
+      }
+    }, 500)
   }
 
   const roleColor = role === 'cliente' ? 'ramo-yellow' : 'ramo-red'
@@ -77,9 +91,9 @@ export default function LoginPage() {
             <Image
               src="/ramo-logo.png"
               alt="Ramo Vecino"
-              width={80}
-              height={80}
-              className="h-24 w-auto"
+              width={120}
+              height={120}
+              className="h-40 w-auto"
             />
           </div>
           <h1 className="text-4xl font-bold text-white">Inicia sesión</h1>
