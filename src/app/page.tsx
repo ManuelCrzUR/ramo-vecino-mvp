@@ -15,7 +15,7 @@ export default function SplashPage() {
       if (user) {
         router.push(`/${user.role}`)
       } else {
-        router.push('/onboarding')
+        router.push('/login')
       }
     }, 2500)
 
@@ -68,7 +68,7 @@ export default function SplashPage() {
 
         {/* Loading chocolates */}
         <motion.div
-          className="flex justify-center gap-3 mt-12"
+          className="flex justify-center gap-4 mt-12"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, ease: 'easeOut' }}
@@ -76,7 +76,6 @@ export default function SplashPage() {
           {[0, 1, 2].map((i) => (
             <motion.div
               key={i}
-              className="text-4xl"
               animate={{ y: [0, -15, 0], opacity: [1, 0.5, 1] }}
               transition={{
                 duration: 0.8,
@@ -85,7 +84,13 @@ export default function SplashPage() {
                 ease: 'easeInOut'
               }}
             >
-              🍫
+              <Image
+                src="/chocoramos.png"
+                alt="Loading"
+                width={40}
+                height={40}
+                className="h-10 w-auto"
+              />
             </motion.div>
           ))}
         </motion.div>
