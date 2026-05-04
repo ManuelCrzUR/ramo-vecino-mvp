@@ -26,7 +26,7 @@ export default function PanaderoLayout({
 
   return (
     <div className="min-h-screen pb-20 bg-white">
-      <div className="sticky top-0 z-50 h-16 flex items-center px-4" style={{ backgroundColor: '#FFB3B3' }}>
+      <div className="sticky top-0 z-50 h-16 flex items-center px-4" style={{ backgroundColor: 'rgba(255, 109, 45, 0.3)' }}>
         <div className="flex items-center gap-3">
           <div className="relative h-12 w-12 rounded-lg bg-white/20 flex items-center justify-center">
             <Image
