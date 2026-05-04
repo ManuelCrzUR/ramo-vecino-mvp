@@ -2,10 +2,13 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { useUser } from '@/lib/store'
 import { MOCK_USERS } from '@/lib/mockData'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { ArrowLeft } from 'lucide-react'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -13,22 +16,27 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [role, setRole] = useState<'cliente' | 'panadero'>('cliente')
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const setUser = useUser((state) => state.setUser)
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    setIsLoading(true)
 
-    const user = Object.values(MOCK_USERS).find(
-      (u) => u.email === email && u.password === password && u.role === role
-    )
+    setTimeout(() => {
+      const user = Object.values(MOCK_USERS).find(
+        (u) => u.email === email && u.password === password && u.role === role
+      )
 
-    if (user) {
-      setUser(user)
-      router.push(`/${role}`)
-    } else {
-      setError('Email o contraseña incorrectos')
-    }
+      if (user) {
+        setUser(user)
+        router.push(`/${role}`)
+      } else {
+        setError('Email o contraseña incorrectos')
+        setIsLoading(false)
+      }
+    }, 500)
   }
 
   const handleDemoLogin = (demoRole: 'cliente' | 'panadero') => {
@@ -43,121 +51,171 @@ export default function LoginPage() {
     }
   }
 
+  const roleColor = role === 'cliente' ? 'ramo-yellow' : 'ramo-red'
+  const roleTextColor = role === 'cliente' ? 'ramo-dark' : 'white'
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white p-4">
-      <div className="w-full max-w-md space-y-6">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-ramo-grayDark mb-2">Ramo Vecino</h1>
-          <p className="text-ramo-grayDark text-lg">Inicia sesión</p>
+    <div className="min-h-screen bg-gradient-to-b from-ramo-cream via-white to-ramo-cream p-6 flex flex-col items-center justify-center">
+      <motion.div
+        className="w-full max-w-md"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        {/* Back Button */}
+        <button
+          onClick={() => router.back()}
+          className="mb-6 flex items-center gap-2 text-ramo-gray hover:text-ramo-dark transition-colors"
+        >
+          <ArrowLeft size={20} />
+          <span className="text-sm font-medium">Atrás</span>
+        </button>
+
+        {/* Header */}
+        <div className="text-center mb-10 space-y-3">
+          <Image
+            src="/ramo-logo.png"
+            alt="Ramo Vecino"
+            width={60}
+            height={60}
+            className="h-16 w-auto mx-auto"
+          />
+          <h1 className="text-4xl font-bold text-ramo-dark">Inicia sesión</h1>
+          <p className="text-ramo-gray">Accede a tu cuenta de Ramo Vecino</p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-ramo-grayDark mb-2">
-              Tipo de usuario
-            </label>
-            <div className="flex gap-2">
-              <button
+        <form onSubmit={handleLogin} className="space-y-6">
+          {/* Role Selector */}
+          <div className="space-y-3">
+            <label className="block text-sm font-bold text-ramo-dark">¿Cuál es tu rol?</label>
+            <div className="grid grid-cols-2 gap-3">
+              <motion.button
                 type="button"
                 onClick={() => {
                   setRole('cliente')
                   setEmail('')
                   setPassword('')
+                  setError('')
                 }}
-                className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
+                whileHover={{ scale: 1.02 }}
+                className={`py-3 px-4 rounded-xl font-medium transition-all border-2 ${
                   role === 'cliente'
-                    ? 'bg-ramo-blue text-white'
-                    : 'bg-ramo-grayLight text-ramo-grayDark hover:bg-gray-200'
+                    ? 'bg-ramo-yellow border-ramo-yellow text-ramo-dark'
+                    : 'bg-white border-ramo-yellow/20 text-ramo-dark hover:border-ramo-yellow/50'
                 }`}
               >
-                Cliente
-              </button>
-              <button
+                👤 Cliente
+              </motion.button>
+              <motion.button
                 type="button"
                 onClick={() => {
                   setRole('panadero')
                   setEmail('')
                   setPassword('')
+                  setError('')
                 }}
-                className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
+                whileHover={{ scale: 1.02 }}
+                className={`py-3 px-4 rounded-xl font-medium transition-all border-2 ${
                   role === 'panadero'
-                    ? 'bg-ramo-red text-white'
-                    : 'bg-ramo-grayLight text-ramo-grayDark hover:bg-gray-200'
+                    ? 'bg-ramo-red border-ramo-red text-white'
+                    : 'bg-white border-ramo-red/20 text-ramo-dark hover:border-ramo-red/50'
                 }`}
               >
-                Panadero
-              </button>
+                👨‍🍳 Panadero
+              </motion.button>
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-ramo-grayDark mb-2">
-              Email
-            </label>
+          {/* Email Input */}
+          <div className="space-y-2">
+            <label className="block text-sm font-bold text-ramo-dark">Email</label>
             <Input
               type="email"
-              placeholder="correo@ejemplo.com"
+              placeholder="tu@correo.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="rounded-lg border-2 border-ramo-border focus:border-ramo-yellow focus:ring-0"
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-ramo-grayDark mb-2">
-              Contraseña
-            </label>
+          {/* Password Input */}
+          <div className="space-y-2">
+            <label className="block text-sm font-bold text-ramo-dark">Contraseña</label>
             <Input
               type="password"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="rounded-lg border-2 border-ramo-border focus:border-ramo-yellow focus:ring-0"
             />
           </div>
 
-          {error && <div className="text-ramo-red text-sm text-center">{error}</div>}
+          {/* Error */}
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="p-3 bg-ramo-red/10 border border-ramo-red/30 rounded-lg text-ramo-red text-sm text-center font-medium"
+            >
+              {error}
+            </motion.div>
+          )}
 
+          {/* Login Button */}
           <Button
             type="submit"
-            className={`w-full font-bold py-6 ${
+            disabled={isLoading}
+            className={`w-full py-6 font-bold rounded-lg transition-all ${
               role === 'cliente'
-                ? 'bg-ramo-blue hover:bg-blue-600'
-                : 'bg-ramo-red hover:bg-red-700'
+                ? 'bg-ramo-yellow text-ramo-dark hover:bg-yellow-500'
+                : 'bg-ramo-red text-white hover:bg-red-700'
             }`}
           >
-            Entrar
+            {isLoading ? 'Entrando...' : 'Entrar'}
           </Button>
         </form>
 
-        <div className="relative">
+        {/* Demo Divider */}
+        <div className="relative my-8">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-ramo-grayBorder"></div>
+            <div className="w-full border-t border-ramo-border"></div>
           </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-ramo-grayDark">O usa demo</span>
+          <div className="relative flex justify-center">
+            <span className="px-3 bg-gradient-to-b from-ramo-cream via-white to-ramo-cream text-ramo-gray text-xs font-medium uppercase">
+              O prueba con demo
+            </span>
           </div>
         </div>
 
-        <div className="flex gap-2">
-          <Button
+        {/* Demo Buttons */}
+        <div className="grid grid-cols-2 gap-3">
+          <motion.button
             type="button"
             onClick={() => handleDemoLogin('cliente')}
-            variant="outline"
-            className="flex-1"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="py-3 px-4 bg-white border-2 border-ramo-yellow/50 rounded-lg font-bold text-ramo-dark hover:border-ramo-yellow transition-all"
           >
             Demo Cliente
-          </Button>
-          <Button
+          </motion.button>
+          <motion.button
             type="button"
             onClick={() => handleDemoLogin('panadero')}
-            variant="outline"
-            className="flex-1"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="py-3 px-4 bg-white border-2 border-ramo-red/50 rounded-lg font-bold text-ramo-dark hover:border-ramo-red transition-all"
           >
             Demo Panadero
-          </Button>
+          </motion.button>
         </div>
-      </div>
+
+        {/* Hint */}
+        <p className="text-center text-xs text-ramo-gray/60 font-medium mt-6">
+          Ambas cuentas usan: demo123
+        </p>
+      </motion.div>
     </div>
   )
 }

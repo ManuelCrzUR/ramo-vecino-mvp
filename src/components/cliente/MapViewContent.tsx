@@ -7,12 +7,19 @@ import { MOCK_BAKERIES, MOCK_BAKE_EVENTS } from '@/lib/mockData'
 import { useGeolocation } from '@/hooks/useGeolocation'
 import { Bakery } from '@/types'
 import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
 
-const redIcon = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCAzMiA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iNDgiIHJ4PSI0IiBmaWxsPSIjRTMwNjEzIi8+PHRleHQgeD0iMTYiIHk9IjI4IiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSI+sPCdmoK8PC90ZXh0Pjwvc3ZnPg==',
-  iconSize: [32, 48],
-  iconAnchor: [16, 48],
-  popupAnchor: [0, -48],
+const customIcon = new L.Icon({
+  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNTYiIHZpZXdCb3g9IjAgMCA0OCA1NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii01MCUiIHk9Ii01MCUiIHdpZHRoPSIyMDAliIGhlaWdodD0iMjAwJSI+PGZlRHJvcFNoYWRvdyBkdj0iMiIgc3RkRGV2aWF0aW9uPSIzIiBmbG9vZC1vcGFjaXR5PSIwLjMiIC8+PC9maWx0ZXI+PC9kZWZzPjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcng9IjgiIGZpbGw9IiNGRkQ3MDAiIGZpbHRlcj0idXJsKCNzaGFkb3cpIiBzdHJva2U9IiNFMzA2MTMiIHN0cm9rZS13aWR0aD0iMiIvPjx0ZXh0IHg9IjI0IiB5PSIyOCIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzNEMUYwRiI+sPCdmoK8PC90ZXh0Pjwvc3ZnPg==',
+  iconSize: [48, 56],
+  iconAnchor: [24, 56],
+  popupAnchor: [0, -56],
+})
+
+const userIcon = new L.Icon({
+  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNDIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI4IiBmaWxsPSIjRkZENzAwIiBzdHJva2U9IiMzRDFGMEYiIHN0cm9rZS13aWR0aD0iMiIvPjwvc3ZnPg==',
+  iconSize: [24, 24],
+  iconAnchor: [12, 12],
 })
 
 export default function MapViewContent({
@@ -23,36 +30,37 @@ export default function MapViewContent({
   events: any[]
 }) {
   const mapRef = useRef<L.Map | null>(null)
-  const [activeSheet, setActiveSheet] = useState(false)
+  const markersRef = useRef<L.Marker[]>([])
   const [selectedBakery, setSelectedBakery] = useState<Bakery | null>(null)
   const { coords, loading } = useGeolocation()
 
   useEffect(() => {
     if (!mapRef.current) {
-      const map = L.map('map').setView(coords, 13)
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap',
-        maxZoom: 19,
+      const map = L.map('map', { zoomControl: false }).setView(coords, 14)
+
+      L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.png', {
+        attribution: '© Stadia Maps © OpenStreetMap',
+        maxZoom: 20,
       }).addTo(map)
 
-      // User location
-      L.circleMarker(coords, {
-        radius: 8,
-        fillColor: '#0099FF',
-        color: '#fff',
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 0.8,
-      }).addTo(map)
+      L.control.zoom({ position: 'topright' }).addTo(map)
+
+      // User location - blue dot with pulse
+      const userMarker = L.marker(coords, { icon: userIcon }).addTo(map)
+      userMarker.bindTooltip('Tu ubicación', { permanent: false })
 
       mapRef.current = map
     }
 
-    mapRef.current.setView(coords, 13)
+    mapRef.current.setView(coords, 14)
   }, [coords])
 
   useEffect(() => {
     if (!mapRef.current) return
+
+    // Clear old markers
+    markersRef.current.forEach(m => m.remove())
+    markersRef.current = []
 
     bakeries.forEach((bakery) => {
       const recentEvent = events.find((e) => e.bakeryId === bakery.id)
@@ -62,27 +70,27 @@ export default function MapViewContent({
 
       const isRecent = minutesAgo && minutesAgo < 30
 
-      const marker = L.marker([bakery.lat, bakery.lng], { icon: redIcon })
-        .bindPopup(`
-          <div class="p-2">
-            <h3 class="font-bold text-sm">${bakery.name}</h3>
-            ${minutesAgo !== null ? `<p class="text-xs text-orange-500">⏱️ Hace ${minutesAgo} min</p>` : ''}
-            <p class="text-xs">⭐ ${bakery.rating}</p>
-          </div>
-        `)
+      const marker = L.marker([bakery.lat, bakery.lng], { icon: customIcon })
+        .bindTooltip(`<div style="text-align: center;"><strong>${bakery.name}</strong>${isRecent ? '<br/>🔥 Recién horneado' : ''}</div>`, {
+          permanent: false,
+          className: 'ramo-tooltip'
+        })
         .addTo(mapRef.current!)
+
+      marker.on('click', () => setSelectedBakery(bakery))
+      markersRef.current.push(marker)
 
       if (isRecent) {
         const pulseCircle = L.circleMarker([bakery.lat, bakery.lng], {
-          radius: 25,
-          fillColor: '#E30613',
+          radius: 30,
+          fillColor: '#FFD700',
           color: '#E30613',
-          weight: 1,
-          opacity: 0.3,
-          fillOpacity: 0.2,
+          weight: 2,
+          opacity: 0.8,
+          fillOpacity: 0.1,
         }).addTo(mapRef.current!)
 
-        // Pulse animation via CSS keyframes
+        markersRef.current.push(pulseCircle as any)
       }
     })
   }, [bakeries, events])
@@ -96,50 +104,87 @@ export default function MapViewContent({
   return (
     <>
       <style>{`
-        @keyframes pulse {
-          0%, 100% { r: 20px; }
-          50% { r: 30px; }
+        #map {
+          filter: brightness(1.05) contrast(1.1);
+        }
+        .ramo-tooltip .leaflet-tooltip {
+          background: #FFF8E7 !important;
+          border: 2px solid #FFD700 !important;
+          border-radius: 8px !important;
+          color: #3D1F0F !important;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+        }
+        .ramo-tooltip .leaflet-tooltip-left::before {
+          border-left-color: #FFD700 !important;
+        }
+        @keyframes mapPulse {
+          0%, 100% {
+            box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+          }
+          50% {
+            box-shadow: 0 0 0 10px rgba(255, 215, 0, 0);
+          }
         }
       `}</style>
 
-      <div className="h-[calc(100vh-64px)] relative">
-        <div id="map" className="w-full h-full" />
+      <div className="relative h-[calc(100vh-64px)] w-full bg-ramo-cream">
+        <div id="map" className="w-full h-full rounded-none" />
 
-        <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl max-h-96 overflow-y-auto shadow-lg">
-          <div className="p-4 sticky top-0 bg-white border-b border-ramo-grayBorder">
-            <h2 className="font-bold text-lg text-ramo-grayDark">Panaderías cerca</h2>
-          </div>
+        {/* Bottom Sheet with Pan Animation */}
+        <AnimatePresence>
+          <motion.div
+            initial={{ y: 300, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 300, opacity: 0 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl max-h-96 overflow-y-auto shadow-2xl border-t-4 border-ramo-yellow"
+          >
+            <div className="p-6 sticky top-0 bg-white border-b-2 border-ramo-yellow/20 rounded-t-3xl">
+              <div className="w-10 h-1 bg-ramo-gray/20 rounded-full mx-auto mb-4" />
+              <h2 className="font-bold text-lg text-ramo-dark">Panaderías cercanas</h2>
+              <p className="text-sm text-ramo-gray mt-1">{baketeriesSorted.length} panaderías</p>
+            </div>
 
-          <div className="p-4 space-y-2">
-            {baketeriesSorted.map((bakery) => {
-              const recentEvent = events.find((e) => e.bakeryId === bakery.id)
-              const minutesAgo = recentEvent
-                ? Math.floor((Date.now() - new Date(recentEvent.bakedAt).getTime()) / 60000)
-                : null
+            <div className="p-4 space-y-2 pb-6">
+              {baketeriesSorted.map((bakery, idx) => {
+                const recentEvent = events.find((e) => e.bakeryId === bakery.id)
+                const minutesAgo = recentEvent
+                  ? Math.floor((Date.now() - new Date(recentEvent.bakedAt).getTime()) / 60000)
+                  : null
 
-              return (
-                <Link
-                  key={bakery.id}
-                  href={`/cliente/panaderia/${bakery.id}`}
-                  className="block p-3 rounded-lg border border-ramo-grayBorder hover:bg-ramo-grayLight transition-colors"
-                >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-bold text-ramo-grayDark">{bakery.name}</h3>
-                      <p className="text-xs text-ramo-grayDark">{bakery.address}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm font-bold text-ramo-blue">⭐ {bakery.rating}</p>
-                      {minutesAgo !== null && minutesAgo < 30 && (
-                        <p className="text-xs text-ramo-alert">🔥 Hace {minutesAgo}m</p>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </div>
+                return (
+                  <motion.div
+                    key={bakery.id}
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: idx * 0.05 }}
+                  >
+                    <Link
+                      href={`/cliente/panaderia/${bakery.id}`}
+                      className="block p-4 rounded-xl bg-gradient-to-r from-ramo-cream to-white border-2 border-ramo-border hover:border-ramo-yellow transition-all duration-300 hover:shadow-lg active:scale-95"
+                    >
+                      <div className="flex justify-between items-start gap-3">
+                        <div className="flex-1">
+                          <h3 className="font-bold text-ramo-dark text-sm">{bakery.name}</h3>
+                          <p className="text-xs text-ramo-gray mt-1">{bakery.address}</p>
+                          {bakery.isCertified && (
+                            <p className="text-xs text-ramo-yellow font-bold mt-1">✓ Certificada</p>
+                          )}
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm font-bold text-ramo-yellow">⭐ {bakery.rating}</p>
+                          {minutesAgo !== null && minutesAgo < 30 && (
+                            <p className="text-xs text-ramo-red font-bold animate-pulse">🔥 Hace {minutesAgo}m</p>
+                          )}
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                )
+              })}
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </>
   )
