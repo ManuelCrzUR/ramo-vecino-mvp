@@ -33,6 +33,7 @@ export default function MapViewContent({
   const mapRef = useRef<L.Map | null>(null)
   const markersRef = useRef<L.Marker[]>([])
   const [selectedBakery, setSelectedBakery] = useState<Bakery | null>(null)
+  const [isExpanded, setIsExpanded] = useState(false)
   const { coords, loading } = useGeolocation()
 
   useEffect(() => {
@@ -164,23 +165,42 @@ export default function MapViewContent({
       <div className="fixed inset-0 top-16 w-full bg-ramo-cream flex flex-col">
         <div id="map" className="w-full flex-1 rounded-none" />
 
-        {/* Bottom Sheet with Pan Animation */}
+        {/* Bottom Sheet with Collapse */}
         <AnimatePresence>
           <motion.div
             initial={{ y: 300, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 300, opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="absolute bottom-0 left-0 right-0 rounded-t-3xl max-h-96 overflow-hidden shadow-2xl border-t-4 z-40 bg-white"
+            className={`absolute bottom-0 left-0 right-0 rounded-t-3xl overflow-hidden shadow-2xl border-t-4 z-40 bg-white transition-all duration-300 ${
+              isExpanded ? 'max-h-96' : 'max-h-20'
+            }`}
             style={{ borderTopColor: '#E30613' }}
           >
-            <div className="bg-white border-b-2 rounded-t-3xl p-4" style={{ borderBottomColor: '#E30613' }}>
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="w-full bg-white border-b-2 rounded-t-3xl p-4 hover:bg-gray-50 transition-colors"
+              style={{ borderBottomColor: isExpanded ? '#E30613' : 'transparent' }}
+            >
               <div className="w-10 h-1 rounded-full mx-auto mb-3" style={{ backgroundColor: '#E30613' }} />
-              <h2 className="font-bold text-lg text-ramo-dark">Panaderías cercanas</h2>
-              <p className="text-sm text-ramo-gray mt-1">{baketeriesSorted.length} panaderías</p>
-            </div>
+              <div className="flex justify-between items-center">
+                <div className="text-left">
+                  <h2 className="font-bold text-lg text-ramo-dark">Panaderías cercanas</h2>
+                  <p className="text-sm text-ramo-gray">{baketeriesSorted.length} panaderías</p>
+                </div>
+                <motion.div
+                  animate={{ rotate: isExpanded ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <svg className="w-6 h-6 text-ramo-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </motion.div>
+              </div>
+            </button>
 
-            <div className="overflow-y-auto max-h-80 p-4 space-y-2 pb-6 bg-white">
+            {isExpanded && (
+              <div className="overflow-y-auto max-h-80 p-4 space-y-2 pb-6 bg-white">
               {baketeriesSorted.map((bakery, idx) => {
                 const recentEvent = events.find((e) => e.bakeryId === bakery.id)
                 const minutesAgo = recentEvent
@@ -196,7 +216,8 @@ export default function MapViewContent({
                   >
                     <Link
                       href={`/cliente/panaderia/${bakery.id}`}
-                      className="block p-4 rounded-xl bg-gradient-to-r from-ramo-cream to-white border-2 border-ramo-border hover:border-ramo-yellow transition-all duration-300 hover:shadow-lg active:scale-95"
+                      className="block p-4 rounded-xl border-2 border-ramo-border hover:border-ramo-yellow transition-all duration-300 hover:shadow-lg active:scale-95"
+                      style={{ backgroundColor: 'rgba(123, 195, 237, 0.15)' }}
                     >
                       <div className="flex justify-between items-start gap-3">
                         <div className="flex-1">
@@ -223,7 +244,8 @@ export default function MapViewContent({
                   </motion.div>
                 )
               })}
-            </div>
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
