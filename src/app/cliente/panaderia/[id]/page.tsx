@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, use } from 'react'
 import { useRouter } from 'next/navigation'
 import { MOCK_BAKERIES, MOCK_PRODUCTS, MOCK_COMBOS, MOCK_BAKE_EVENTS } from '@/lib/mockData'
 import { useUser } from '@/lib/store'
@@ -12,11 +12,12 @@ import { ArrowLeft, Heart, MapPin, Phone, Star, CheckCircle, Flame } from 'lucid
 export default function BakeryDetailPage({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
+  const { id } = use(params)
   const router = useRouter()
   const user = useUser((state) => state.user)
-  const bakery = MOCK_BAKERIES[params.id]
+  const bakery = MOCK_BAKERIES[id]
   const [isFavorited, setIsFavorited] = useState(
     user?.favorites?.includes(bakery?.id) || false
   )
