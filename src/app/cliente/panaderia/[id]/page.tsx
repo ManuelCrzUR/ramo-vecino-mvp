@@ -106,10 +106,9 @@ export default function BakeryDetailPage({
 
         <div className="bg-white -mt-6 rounded-t-3xl px-6 py-6">
           <Tabs defaultValue="tortas" className="w-full">
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="tortas">Tortas</TabsTrigger>
               <TabsTrigger value="especiales">Especiales</TabsTrigger>
-              <TabsTrigger value="combos">Combos</TabsTrigger>
               <TabsTrigger value="resenas">Reseñas</TabsTrigger>
             </TabsList>
 
@@ -179,30 +178,45 @@ export default function BakeryDetailPage({
                   </div>
                 </div>
               )}
-            </TabsContent>
 
-            <TabsContent value="combos" className="space-y-4 mt-6">
-              {bakeryComBos.map((combo) => (
-                <div
-                  key={combo.id}
-                  className="border-2 border-red-200 rounded-lg p-4 bg-red-50 hover:bg-red-100 transition-colors cursor-pointer active:scale-95"
-                >
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <h3 className="font-bold text-gray-900">{combo.name}</h3>
-                      <p className="text-sm text-gray-600 mt-1">
-                        {combo.description}
-                      </p>
-                      <p className="text-xs text-gray-700 mt-2 font-semibold">
-                        📦 {combo.products.length} productos incluidos
-                      </p>
+              <div className="mt-6 pt-6 border-t-2 border-gray-200">
+                <h3 className="font-bold text-lg text-gray-900 mb-4">Bites Ramo</h3>
+                {[
+                  MOCK_PRODUCTS['bites-ramo-4'],
+                  MOCK_PRODUCTS['bites-ramo-6'],
+                  MOCK_PRODUCTS['bites-ramo-8'],
+                  MOCK_PRODUCTS['bites-ramo-10'],
+                ].map((product) => (
+                  product && (
+                    <div
+                      key={product.id}
+                      className="border-2 border-purple-200 rounded-lg p-4 bg-purple-50 hover:bg-purple-100 transition-colors cursor-pointer active:scale-95 mb-3"
+                    >
+                      <div className="flex gap-4">
+                        {product.image && (
+                          <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200 relative">
+                            <Image
+                              src={product.image}
+                              alt={product.name}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                        )}
+                        <div className="flex-1">
+                          <h4 className="font-bold text-gray-900">{product.name}</h4>
+                          <p className="text-sm text-gray-600 mt-1">
+                            {product.description}
+                          </p>
+                          <p className="font-bold text-purple-600 text-lg mt-2">
+                            ${product.price.toLocaleString()}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <p className="font-bold text-red-600 text-lg ml-4 whitespace-nowrap">
-                      ${combo.price.toLocaleString()}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                  )
+                ))}
+              </div>
             </TabsContent>
 
             <TabsContent value="resenas" className="space-y-4 mt-6">
