@@ -8,7 +8,7 @@ import { useGeolocation } from '@/hooks/useGeolocation'
 import { Bakery } from '@/types'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Star, Flame } from 'lucide-react'
+import { Star, Flame, ChevronDown } from 'lucide-react'
 
 const customIcon = new L.Icon({
   iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA2NCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii01MCUiIHk9Ii01MCUiIHdpZHRoPSIyMDAlIiBoZWlnaHQ9IjIwMCUiPjxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjQiIGZsb29kLW9wYWNpdHk9IjAuNCIvPjwvZmlsdGVyPjwvZGVmcz48cGF0aCBkPSJNMzIgMEM0OS43IDAgNjQgMTQuMyA2NCAzMmMwIDE4LTMyIDQ4LTMyIDQ4cy0zMi0zMC0zMi00OEMwIDE0LjMgMTQuMyAwIDMyIDBaIiBmaWxsPSIjRkZENzAwIiBmaWx0ZXI9InVybCgjc2hhZG93KSIgc3Ryb2tlPSIjRTMwNjEzIiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjI4IiByPSIxNiIgZmlsbD0iI0UzMDYxMyIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMjgiIHI9IjEyIiBmaWxsPSIjRkZENzAwIi8+PC9zdmc+',
@@ -191,10 +191,9 @@ export default function MapViewContent({
                 <motion.div
                   animate={{ rotate: isExpanded ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
+                  className="flex items-center justify-center"
                 >
-                  <svg className="w-6 h-6 text-ramo-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                  </svg>
+                  <ChevronDown size={24} className="text-ramo-dark" strokeWidth={3} />
                 </motion.div>
               </div>
             </button>
