@@ -26,7 +26,7 @@ export default function NotificacionesPage() {
             <div
               key={event.id}
               className="rounded-xl p-4 border-2 border-ramo-border hover:shadow-lg transition-all"
-              style={{ backgroundColor: '#FFFFFF' }}
+              style={{ backgroundColor: 'rgba(31, 111, 168, 0.1)' }}
             >
               <div className="flex gap-4">
                 <div className="flex items-center justify-center w-12 h-12 bg-orange-400/20 rounded-lg flex-shrink-0">

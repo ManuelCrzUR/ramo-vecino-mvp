@@ -51,7 +51,7 @@ export default function BakeryDetailPage({
           </button>
         </div>
 
-        <div className="text-white p-6 pb-12 space-y-4" style={{ background: 'linear-gradient(to bottom right, #E74C57, #D63846)' }}>
+        <div className="text-white p-6 pb-12 space-y-4" style={{ background: 'linear-gradient(to bottom right, #0099FF, #0077CC)' }}>
           <h1 className="text-3xl font-bold">{bakery.name}</h1>
           <div className="space-y-3 text-sm">
             <div className="flex items-center gap-2">
